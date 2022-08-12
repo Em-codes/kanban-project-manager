@@ -11,7 +11,7 @@ module.exports = {
       sans: ["Plus Jakarta Sans", "sans-serif"],
     },
     fontSize: {
-      base: ["0.8125rem", "1.4375rem"],
+      base: ["0.9rem", "1.4375rem"],
       xl: ["1.5rem", "1.875rem"],
       lg: ["1.125rem", "1.4375rem"],
       md: ["0.9375rem", "1.1875rem"],

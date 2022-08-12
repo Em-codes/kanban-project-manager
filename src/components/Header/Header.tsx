@@ -1,20 +1,23 @@
 import React from 'react'
 import Image from 'next/image'
+import Button from '@components/shared/Button'
 
 
 const Header = () => {
   return (
-    <header className='border border-red-500 flex items-center'>
-        <div className="w-[260px] lg:w-[300px] p-8 box-border transition-all ease border-r border-r-lightGreyLine dark:border-r-darkGreyLine">
+    <header className='border border-red-500 flex items-center h-[85px]'>
+        <div className="w-[360px] p-8 box-border transition-all ease border-r border-r-lightGreyLine dark:border-r-darkGreyLine">
             <Image src="/assets/logo-dark.svg" height={25} width={152} />
         </div>
-        {/* <h2 className="heading-lg ml-5 mr-2">{ "No Board Found"}</h2> */}
-        <div className='flex items-center justify-between w-full'>
-            <h2>Platform Launch</h2>
-            <button>Add Task</button>
+        <div className='flex items-center justify-between w-full px-6'>
+            <h2 className='font-sans text-lg font-bold'>Platform Launch</h2>
+            <div className='flex items-center gap-4'>
+              <Button children={"+ Add New Task"} padding={'py-3 px-4'} width={''} color={'text-white'} onClick={() => alert('hello')} />
+              <Image className='cursor-pointer' src="/assets/icon-vertical-ellipsis.svg" alt="vertical ellipsis" height={16} width={4} />
+            </div>
         </div>
     </header>
   )
 }
 
-export default Header
+export default Header;

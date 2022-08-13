@@ -5,7 +5,7 @@ import Button from '@components/shared/Button'
 
 const Header = () => {
   return (
-    <header className='border border-red-500 flex items-center h-[85px]'>
+    <header className='flex items-center h-[85px] '>
         <div className="w-[360px] p-8 box-border transition-all ease border-r border-r-lightGreyLine dark:border-r-darkGreyLine">
             <Image src="/assets/logo-dark.svg" height={25} width={152} />
         </div>

@@ -7,13 +7,13 @@ import Board from '@components/Board'
 
 const Home: NextPage = () => {
   return (
-    <div>
+    <main>
       <Header />
-      <div className='flex border border-green-500 h-[calc(100vh-85px)]'>
+      <div className='flex border h-[calc(100vh-85px)]'>
         <SideBar />
         <Board />
       </div>
-    </div>
+    </main>
   )
 }
 

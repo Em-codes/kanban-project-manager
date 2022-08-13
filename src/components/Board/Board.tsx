@@ -2,8 +2,11 @@ import React from 'react'
 
 const Board = () => {
   return (
-    <div>Board</div>
+    <section className='bg-lightGrey w-full'>
+        Board
+    </section>
   )
 }
 
-export default Board
+export default Board;
+

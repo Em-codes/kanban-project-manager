@@ -1,10 +1,16 @@
-import React from 'react'
+import ShowSidebar from "./ShowSideBar";
 
-const Board = () => {
+interface props {
+  isSidebar: boolean,
+  setIsSidebar: (val: boolean) => void;
+}
+
+const Board = ({ isSidebar, setIsSidebar }: props): JSX.Element => {
   return (
-    <section className='bg-lightGrey w-full'>
-        Board
-    </section>
+    <div className="bg-lightGrey w-full dark:bg-veryDarkGrey">
+      Board
+      <ShowSidebar setIsSidebar={setIsSidebar} isSidebar={isSidebar} />
+    </div>
   )
 }
 

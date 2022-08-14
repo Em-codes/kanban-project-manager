@@ -9,6 +9,15 @@
 .active-nav:hover { background: #635FC7 !important;}
 
 
+@layer base {
+  body {
+    @apply max-w-[1920px] mx-auto
+  }
+}
+
+
+
+
 /* @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

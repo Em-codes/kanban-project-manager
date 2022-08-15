@@ -30,6 +30,7 @@ module.exports = {
         mainPurpleHover: "#A8A4FF",
         mainRed: "#EA5555",
         mainRedHover: "#FF9898",
+        modalBackgroundLayer: 'rgba(0, 0, 16, 0.5)',
       },
       letterSpacing: {
         widest: "0.15rem",

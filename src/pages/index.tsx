@@ -15,7 +15,7 @@ const Home: NextPage = () => {
       <Header />
       <div className='flex h-[calc(100vh-85px)]'>
         {isSidebar && <SideBar isSidebar={isSidebar} setIsSidebar={setIsSidebar} /> }
-        <Board setIsSidebar={setIsSidebar} isSidebar={isSidebar}/>
+        <Board setIsSidebar={setIsSidebar} isSidebar={isSidebar}  />
       </div>
     </main>
   )

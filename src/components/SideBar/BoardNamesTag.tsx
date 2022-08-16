@@ -8,7 +8,7 @@ import CreateNewBoard from './CreateNewBoardCTA'
 const BoardNamesTag = () => {
     const [isActiveBoard, updateIsActiveBoard] = useState(0)
     useEffect(() => {
-        console.log(data)
+        console.table(data)
     }, [])
     const boardNameTag = data.boards.map((val, i: any) => (
         <div

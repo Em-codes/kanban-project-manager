@@ -22,6 +22,6 @@
       "@src/*": ["src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/pages/_document.js", "postcss.config.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/pages/_document.js", "postcss.config.js", "src/components/shared/TextInput.tsx"],
   "exclude": ["node_modules"]
 }

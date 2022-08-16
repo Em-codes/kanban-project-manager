@@ -1,8 +1,9 @@
 import Modal from '@components/Modal'
+import CreateNewBoard from '@components/Modal/CreateNewBoard'
 import React, { useState } from 'react'
 
-const CreateNewBoard = () => {
-    const [isCreateBoardModal, setIsCreateBoardModal] = useState<boolean>(false)
+const CreateNewBoardCTA = () => {
+    const [isCreateBoardModal, setIsCreateBoardModal] = useState<boolean>(true)
     return (
         <>
             <div onClick={() => setIsCreateBoardModal(!isCreateBoardModal)} className='py-3 hover:bg-mainPurple hover:text-white text-mainPurple mb-4 flex items-center rounded-r-3xl mr-6 text-base font-bold gap-3 pl-6 -ml-1 cursor-pointer ease transition duration-500 hover:bg-opacity-60'>
@@ -10,10 +11,12 @@ const CreateNewBoard = () => {
                 + Create New Board
             </div>
             <Modal showModal={isCreateBoardModal} setShowModal={setIsCreateBoardModal} >
-                New Board Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus similique aliquam ad nobis tempora provident nisi assumenda hic vitae fugiat.
+                Add New Board
+                <CreateNewBoard />
+
             </Modal>
         </>
     )
 }
 
-export default CreateNewBoard
+export default CreateNewBoardCTA

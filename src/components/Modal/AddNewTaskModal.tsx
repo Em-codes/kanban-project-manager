@@ -3,50 +3,50 @@ import { Formik, FieldArray, Form } from 'formik'
 import * as Yup from 'yup'
 import React from 'react'
 import Button from '@components/shared/Button'
-import { createNewBoard } from 'features/board/boardSlice'
-import { useAppDispatch } from 'app/hooks'
+import TextArea from '@components/shared/TextArea'
+import StatustDropdown from '@components/shared/StatustDropdown'
 
-const CreateNewBoard = () => {
+const AddNewTaskModal = () => {
 
-    const dispatch = useAppDispatch()
     const validate = Yup.object({
-        name: Yup.string().required("Board title is required"),
-        columns: Yup.array().of(
-            Yup.string().required("Column title is required"),
+        name: Yup.string().required("required"),
+        subtasks: Yup.array().of(
+            Yup.string().required("required"),
         )
     })
 
     return (
         <div>
-            <h1 className="text-lg font-bold mb-6">Add New Board</h1>
+            <h1 className="text-lg font-bold mb-6"> Add New Task</h1>
             <Formik
-                initialValues={{ name: "", columns: ['Todo', 'doing'] }}
+                initialValues={{ title: "", subtasks: [] }}
                 validationSchema={validate}
                 onSubmit={(values, { setSubmitting, resetForm }) => {
                     setSubmitting(true)
 
                     //make async call
                     console.log('submit:', values);
-                    dispatch(createNewBoard(values))
                     setSubmitting(false)
                     resetForm()
                 }}
             >
                 {({ values, isSubmitting, handleSubmit }) => (
                     <Form onSubmit={handleSubmit}>
-                        <TextInput label='Board Name' name="name" type="input" placeholder='eg: Web Design' />
-                        <label className="body-md capitalize text-mediumGrey dark:text-white mt-6 block">
-                            Board Columns
+                        <TextInput label='Board Name' name="title" type="input" placeholder='eg: Web Design' />
+                        <TextArea label="Description" name="description" type="text" placeholder="e.g. It’s always good to take a break. This 15 minute break will recharge the batteries a little." />
+
+                         <label className="body-md text-sm font-bold capitalize text-mediumGrey dark:text-white mt-6 block">
+                            subtasks
                         </label>
 
-                        <FieldArray name="columns"
+                        <FieldArray name="subtasks"
                             render={val => (
                                 <div>
-                                    {values.columns.map((_, i) => (
+                                    {values.subtasks.map((_, i) => (
                                         <div key={i} className="flex">
-                                            <TextInput label='' name={`columns[${i}]`} type="text" placeholder="e.g. Archived" />
+                                            <TextInput label='' name={`subtasks[${i}]`} type="text" placeholder="e.g. Archived" />
                                             <button onClick={() => val.remove(i)}
-                                             className="text-mediumGrey hover:text-mainRed ml-4"
+                                                className="text-mediumGrey hover:text-mainRed ml-4"
                                             >
                                                 <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg">
                                                     <g fill="currentColor" fillRule="evenodd">
@@ -64,12 +64,13 @@ const CreateNewBoard = () => {
                                         onClick={() => val.push('')}
                                         className={'bg-[#635FC71A] rounded-full w-full py-[7px] text-mainPurple transition duration-200 text-base hover:bg-mainPurpleHover font-sans'}
                                     >
-                                        {'+ Add New Column'}
+                                        {'+ Add New Subtask'}
                                     </button>
                                 </div>
                             )}
                         />
-                        <br />
+        
+                        <StatustDropdown /> <br /> <br />
 
                         <Button type="submit" disabled={isSubmitting} children={'Save Changes'} width={"w-full"} padding={'py-[7px]'} color={'text-white'} />
                         {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
@@ -80,4 +81,4 @@ const CreateNewBoard = () => {
     )
 }
 
-export default CreateNewBoard
+export default AddNewTaskModal

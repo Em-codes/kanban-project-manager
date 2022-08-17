@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import data from '../../../src/data.json'
-import CreateNewBoard from './CreateNewBoardCTA'
+import CreateNewBoardCTA from './CreateNewBoardCTA'
+import { RootState } from 'app/store'
+import { useAppSelector } from 'app/hooks'
 
 
 
 
 const BoardNamesTag = () => {
+
     const [isActiveBoard, updateIsActiveBoard] = useState(0)
-    useEffect(() => {
-        console.table(data)
-    }, [])
-    const boardNameTag = data.boards.map((val, i: any) => (
-        <div
+    const data = useAppSelector((state: RootState) => state.boards)
+    let boardsData = data.boards
+    
+
+    
+    const boardNameTag = boardsData.map((val, i: any) => (
+        <div key={i}
             className={`py-3 text-mediumGrey flex items-center rounded-r-3xl mr-6 text-base font-bold gap-3 pl-6 -ml-1 cursor-pointer hover:bg-lightGrey ease transition duration-500 ${isActiveBoard === i && 'active-nav'}`}
             onClick={() => updateIsActiveBoard(i)}
         >
@@ -24,7 +29,7 @@ const BoardNamesTag = () => {
         <div>
             <div className='font-bold text-sm text-mediumGrey tracking-widest pl-6 pt-7 pb-8 uppercase'>all boards ({data.boards.length})</div>
             <div>{boardNameTag}</div>
-            <CreateNewBoard />
+            <CreateNewBoardCTA />
         </div>
     )
 }

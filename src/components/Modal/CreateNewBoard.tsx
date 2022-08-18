@@ -20,7 +20,11 @@ const CreateNewBoard = () => {
         <div>
             <h1 className="text-lg font-bold mb-6">Add New Board</h1>
             <Formik
-                initialValues={{ name: "", columns: ['Todo', 'doing'] }}
+                initialValues={{
+                     name: "",
+                      columns: []
+                    
+                    }}
                 validationSchema={validate}
                 onSubmit={(values, { setSubmitting, resetForm }) => {
                     setSubmitting(true)
@@ -61,7 +65,7 @@ const CreateNewBoard = () => {
 
                                     <button
                                         type='submit'
-                                        onClick={() => val.push('')}
+                                        onClick={() => val.push({name:"", tasks:[]})}
                                         className={'bg-[#635FC71A] rounded-full w-full py-[7px] text-mainPurple transition duration-200 text-base hover:bg-mainPurpleHover font-sans'}
                                     >
                                         {'+ Add New Column'}

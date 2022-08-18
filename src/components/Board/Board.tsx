@@ -1,6 +1,7 @@
 import Modal from "@components/Modal";
 import ShowSidebar from "./ShowSideBar";
 import { useState } from 'react'
+import BoardColumn from "./BoardColumn";
 
 interface props {
   isSidebar: boolean,
@@ -12,13 +13,10 @@ const Board = ({ isSidebar, setIsSidebar }: props): JSX.Element => {
 
   return (
     <>
+    <ShowSidebar setIsSidebar={setIsSidebar} isSidebar={isSidebar} />
     <div className="bg-lightGrey w-full dark:bg-veryDarkGrey">
-      <span onClick={() => setIsModal(!isModal)}>Open Modal</span>
-      <ShowSidebar setIsSidebar={setIsSidebar} isSidebar={isSidebar} />
+    <BoardColumn />
     </div>
-    <Modal showModal={isModal} setShowModal={setIsModal} >
-        Hello World
-      </Modal>
     </>
   )
 }

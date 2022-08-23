@@ -16,6 +16,8 @@ const BoardNamesTag = () => {
     let boardsData = data.boards
 
     // const boardIndex = boardIndexData === index
+    const x ='hey'
+
     
 
 

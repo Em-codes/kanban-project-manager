@@ -4,10 +4,10 @@ import { RootState } from 'app/store'
 
 const BoardColumn = () => {
     const data = useAppSelector((state: RootState) => state.boards)
-    console.log(data)
+    // console.table(data)
     let boardsData = data.boards.map((val) => val.columns)
     let namel = boardsData.map((val) => val.map((val) => val.name))
-    console.log('mau', namel)
+    // console.log('mau', namel)
    
   return (
    

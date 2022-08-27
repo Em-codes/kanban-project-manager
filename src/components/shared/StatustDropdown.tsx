@@ -23,4 +23,4 @@ const StatustDropdown = () => {
   )
 }
 
-export default StatustDropdown
+export default StatustDropdown;

@@ -11,9 +11,9 @@ const CreateNewBoard = () => {
     const dispatch = useAppDispatch()
     const validate = Yup.object({
         name: Yup.string().required("Board title is required"),
-        columns: Yup.array().of(
-            Yup.string().required("Column title is required"),
-        )
+        // columns: Yup.array().of(
+        //     Yup.string().required("Column title is required"),
+        // )
     })
 
     return (
@@ -22,7 +22,7 @@ const CreateNewBoard = () => {
             <Formik
                 initialValues={{
                      name: "",
-                      columns: []
+                      columns: [{name:"yellow", tasks:[] }]
                     
                     }}
                 validationSchema={validate}
@@ -65,7 +65,9 @@ const CreateNewBoard = () => {
 
                                     <button
                                         type='submit'
-                                        onClick={() => val.push({name:"", tasks:[]})}
+                                        // onClick={() => val.push({ name: "", tasks: [] })}  
+                                        // columns: [...prev.columns, { name: "", tasks: [] }]
+                                        // onClick={() => val.push({name:"", tasks:[]})}
                                         className={'bg-[#635FC71A] rounded-full w-full py-[7px] text-mainPurple transition duration-200 text-base hover:bg-mainPurpleHover font-sans'}
                                     >
                                         {'+ Add New Column'}
@@ -76,7 +78,7 @@ const CreateNewBoard = () => {
                         <br />
 
                         <Button type="submit" disabled={isSubmitting} children={'Save Changes'} width={"w-full"} padding={'py-[7px]'} color={'text-white'} />
-                        {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
+                        <pre>{JSON.stringify(values, null, 2)}</pre>
                     </Form>
                 )}
             </Formik>

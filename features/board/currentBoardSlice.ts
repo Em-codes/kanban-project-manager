@@ -14,10 +14,13 @@ export const currentBoardSlice = createSlice({
     reducers: {
         setCurrentBoard: (state, action: PayloadAction<number>) => {
             state.value = action.payload
+        },
+        currentBoard: (state, action: PayloadAction<number>) => {
+            state.value = state.value
         }
     }
 })
 
-export const { setCurrentBoard } = currentBoardSlice.actions
+export const { setCurrentBoard, currentBoard } = currentBoardSlice.actions
 
 export default currentBoardSlice.reducer

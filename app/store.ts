@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
  import boardsReducer  from 'features/board/boardSlice'
- import currentBoardReducer from 'features/currentBoardSlice'
+ import currentBoardReducer from 'features/board/currentBoardSlice'
 
 
 export const store = configureStore({

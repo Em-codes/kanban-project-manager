@@ -4,7 +4,8 @@ import Header from '@components/Header'
 import SideBar from '@components/SideBar'
 import Board from '@components/Board'
 import { getAllBoards } from 'features/board/boardSlice'
-import { useAppDispatch } from 'app/hooks'
+import { useAppDispatch, useAppSelector } from 'app/hooks'
+import { RootState } from 'app/store'
 import data from '../data.json'
 
 
@@ -15,6 +16,11 @@ const Home: NextPage = () => {
   useEffect(() => {
     dispatch(getAllBoards(data.boards))
   }, [])
+
+  // useEffect(() => {
+    const boards = useAppSelector((state: RootState) => state.boards.boards)
+    // console.log('boardstate', boards)
+  // }, [])
 
   const [isSidebar, setIsSidebar] = useState<boolean>(true)
 

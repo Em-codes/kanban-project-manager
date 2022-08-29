@@ -3,31 +3,19 @@ import { useAppSelector } from 'app/hooks'
 import { RootState } from 'app/store'
 
 const BoardColumn = () => {
-    const data = useAppSelector((state: RootState) => state.boards)
-    // console.table(data)
-    let boardsData = data.boards.map((val) => val.columns)
-    let namel = boardsData.map((val) => val.map((val) => val.tasks))
-    let namelT = boardsData.map((val) => val.map((val) => val.name))
-    // console.log('mau', namel)
+    const boards = useAppSelector((state: RootState) => state.boards.boards)
+    const currentBoard = useAppSelector((state: RootState) => state.currentBoard.value)
+    const boardColumns =  boards?.map((val) => val.columns[currentBoard])
+    const showBoards =  boardColumns?.map((val) => val.name)
+    console.log('sb', showBoards)
+    console.log('bc', boardColumns)
 
-    const x =  {namel}
-    console.log(x)
-    console.log(namelT)
 
    
   return (
    
-    <div>BoardColumn
-        <div>
-            {namel.map((val, i) => (
-                <div key={i}>
-                    <p>{i}</p>
-                </div>
-            ))}
-        </div>
-        <div>
-        </div>
-        
+    <div>
+        {showBoards}
     </div>
   )
 }

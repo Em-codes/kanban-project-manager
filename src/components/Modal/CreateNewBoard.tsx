@@ -11,9 +11,9 @@ const CreateNewBoard = () => {
     const dispatch = useAppDispatch()
     const validate = Yup.object({
         name: Yup.string().required("Board title is required"),
-        // columns: Yup.array().of(
-        //     Yup.string().required("Column title is required"),
-        // )
+        columns: Yup.array().of(
+            Yup.string().required("Column title is required"),
+        )
     })
 
     return (
@@ -22,7 +22,7 @@ const CreateNewBoard = () => {
             <Formik
                 initialValues={{
                      name: "",
-                      columns: [{name:"yellow", tasks:[] }]
+                     columns: [{ name: 'Todo', tasks: [] }, { name: 'Doing', tasks: [] }]
                     
                     }}
                 validationSchema={validate}
@@ -44,12 +44,12 @@ const CreateNewBoard = () => {
                         </label>
 
                         <FieldArray name="columns"
-                            render={val => (
+                            render={arrayHelpers => (
                                 <div>
                                     {values.columns.map((_, i) => (
                                         <div key={i} className="flex">
                                             <TextInput label='' name={`columns[${i}]`} type="text" placeholder="e.g. Archived" />
-                                            <button onClick={() => val.remove(i)}
+                                            <button onClick={() => arrayHelpers.remove(i)}
                                              className="text-mediumGrey hover:text-mainRed ml-4"
                                             >
                                                 <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg">
@@ -64,8 +64,8 @@ const CreateNewBoard = () => {
                                     <br />
 
                                     <button
-                                        type='submit'
-                                        // onClick={() => val.push({ name: "", tasks: [] })}  
+                                        type='button'
+                                        onClick={() => arrayHelpers.push([{name:'', columns: []}])}  
                                         // columns: [...prev.columns, { name: "", tasks: [] }]
                                         // onClick={() => val.push({name:"", tasks:[]})}
                                         className={'bg-[#635FC71A] rounded-full w-full py-[7px] text-mainPurple transition duration-200 text-base hover:bg-mainPurpleHover font-sans'}

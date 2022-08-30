@@ -13,10 +13,10 @@ const Board = ({ isSidebar, setIsSidebar }: props): JSX.Element => {
 
   return (
     <>
-    <ShowSidebar setIsSidebar={setIsSidebar} isSidebar={isSidebar} />
-    <div className="bg-lightGrey w-full dark:bg-veryDarkGrey">
-    <BoardColumn />
-    </div>
+      <ShowSidebar setIsSidebar={setIsSidebar} isSidebar={isSidebar} />
+      <div className="bg-lightGrey w-full dark:bg-veryDarkGrey">
+        <BoardColumn />
+      </div>
     </>
   )
 }

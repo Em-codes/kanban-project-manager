@@ -19,8 +19,6 @@ const BoardNamesTag = () => {
     // const boardNameTagL = boardsData.map((val, i: number) => i)
     // let selectedStyle = boardIndexData === boardNameTagL
 
-    console.log(currentBoard)
-
     
 
 

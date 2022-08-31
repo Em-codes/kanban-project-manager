@@ -7,13 +7,30 @@
 
 .active-nav { color: #fff; background: #635FC7; cursor:none;}
 .active-nav:hover { background: #635FC7 !important;}
-.task-status { background: green;}
+
 
 @layer base {
   body {
     @apply max-w-[1920px] mx-auto
   }
 }
+
+.column:nth-of-type(5n + 1) h3 span {
+  @apply bg-[#49C4E5];
+}
+.column:nth-of-type(5n + 2) h3 span {
+  @apply bg-[#8471F2];
+}
+.column:nth-of-type(5n + 3) h3 span {
+  @apply bg-[#67E2AE];
+}
+.column:nth-of-type(5n + 4) h3 span {
+  @apply bg-[#ff6fa2];
+}
+.column:nth-of-type(5n + 5) h3 span {
+  @apply bg-[#ffca5e];
+}
+
 
 
 /* @media (prefers-color-scheme: dark) {

@@ -4,9 +4,9 @@ import { RootState } from 'app/store'
 import Modal from '@components/Modal'
 import TaskDetailsModal from '@components/Modal/TaskDetailsModal'
 import AddNewColumn from './AddNewColumn'
+import Task from './Task'
 
 const BoardColumn = () => {
-    const [showDetails, setShowDetails] = useState<boolean>(false)
 
     const boards = useAppSelector((state: RootState) => state.boards.boards)
     const currentBoard = useAppSelector((state: RootState) => state.currentBoard.value)
@@ -21,16 +21,11 @@ const BoardColumn = () => {
                 {val.name} ({val.tasks.length})
             </h3>
             <ul className="scrollbar-thin scrollbar-thumb-mainPurple scrollbar-track-transparent overflow-y-scroll h-full pb-12 flex flex-col gap-5">
-                {(val.tasks).map((taskVal: any, { }, index: any) => (
-                    taskVal.status === val.name && (
+                {(val.tasks).map((task: any, { }, j: any) => (
+                    task.status === val.name && (
                         <>
-                            <li onClick={() => setShowDetails(!showDetails)} key={index} className='group select-none shadow-main px-4 py-6 rounded-lg cursor-pointer bg-white text-black dark:bg-darkGrey dark:text-white'>
-                                <h4 className="font-bold text-[15px] mb-2 group-hover:text-mainPurple">{taskVal.title}</h4>
-                                <p className="font-bold text-[12px] text-mediumGrey">{'2'} of {taskVal.subtasks.length} subtasks</p>
-                            </li>
-                          
+                           <Task data={task} key={j} />
                         </>
-
                     )))}
             </ul>
         </div>

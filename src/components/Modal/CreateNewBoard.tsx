@@ -22,7 +22,8 @@ const CreateNewBoard = () => {
             <Formik
                 initialValues={{
                      name: "",
-                     columns: [{ name: 'Todo', tasks: [] }, { name: 'Doing', tasks: [] }]
+                    //  columns: [{ name: 'Todo', tasks: [] }, { name: 'Doing', tasks: [] }]
+                    columns: []
                     
                     }}
                 validationSchema={validate}
@@ -65,7 +66,8 @@ const CreateNewBoard = () => {
 
                                     <button
                                         type='button'
-                                        onClick={() => arrayHelpers.push([{name:'', columns: []}])}  
+                                        onClick={() => arrayHelpers.push('')}  
+                                        // onClick={() => arrayHelpers.push([{name:'', columns: []}])}  
                                         // columns: [...prev.columns, { name: "", tasks: [] }]
                                         // onClick={() => val.push({name:"", tasks:[]})}
                                         className={'bg-[#635FC71A] rounded-full w-full py-[7px] text-mainPurple transition duration-200 text-base hover:bg-mainPurpleHover font-sans'}

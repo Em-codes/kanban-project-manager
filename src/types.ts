@@ -18,7 +18,7 @@ export interface Column {
 export interface Board {
     name: string;
     // columns: Column[] ;
-    columns: { name: string; tasks: {} }[]
+    columns: { name: string; tasks: Task[] }[]
   }
 
 export interface indexedBoard {

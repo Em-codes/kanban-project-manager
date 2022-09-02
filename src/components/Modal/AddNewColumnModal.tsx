@@ -2,10 +2,11 @@ import { Form, Formik } from "formik"
 import * as Yup from 'yup';
 import Button from "@components/shared/Button";
 import TextInput from "@components/shared/TextInput";
-// import { useBoards } from "@src/context";
+import { createNewBoard } from "features/board/boardSlice";
+import { useAppDispatch } from "app/hooks";
 
 const AddNewColumnModal = () => {
-    // const { createColumn } = useBoards();
+    const dispatch = useAppDispatch();
 
     const validate = Yup.object({
         name: Yup.string().required("Can't be empty"),
@@ -14,12 +15,19 @@ const AddNewColumnModal = () => {
     return (
         <Formik
             initialValues={{
-                name: "",
+                columns: [
+                    { name: '', tasks: [] }
+                ]
             }}
-            validationSchema={validate}
-            onSubmit={(values) => {
-                // createColumn(values)
-                // onClose()
+            // validationSchema={validate}
+            onSubmit={(values, { setSubmitting, resetForm }) => {
+                setSubmitting(true)
+
+                //make async call
+                console.log('submit:', values);
+                dispatch(createNewBoard(values))
+                setSubmitting(false)
+                resetForm()
             }
             }
         >

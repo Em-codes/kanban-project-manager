@@ -19,7 +19,7 @@ const Home: NextPage = () => {
 
   // useEffect(() => {
     const boards = useAppSelector((state: RootState) => state.boards.boards)
-    // console.log('boardstate', boards)
+    console.log('boardstate', boards)
   // }, [])
 
   const [isSidebar, setIsSidebar] = useState<boolean>(true)

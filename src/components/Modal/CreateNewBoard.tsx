@@ -1,31 +1,38 @@
 import TextInput from '@components/shared/TextInput'
-import { Formik, FieldArray, Form } from 'formik'
+import { Formik, FieldArray, Form, Field } from 'formik'
 import * as Yup from 'yup'
-import React from 'react'
+import React, { useState } from 'react'
 import Button from '@components/shared/Button'
 import { createNewBoard } from 'features/board/boardSlice'
-import { useAppDispatch } from 'app/hooks'
+import { useAppDispatch, useAppSelector } from 'app/hooks'
+import { RootState } from 'app/store'
+
+
+
 
 const CreateNewBoard = () => {
 
     const dispatch = useAppDispatch()
     const validate = Yup.object({
         name: Yup.string().required("Board title is required"),
-        columns: Yup.array().of(
-            Yup.string().required("Column title is required"),
-        )
+        // columns: Yup.array().of(
+            // Yup.string().required("Column title is required"),
+        // )
     })
+    const currentBoard = useAppSelector((state: RootState) => state.currentBoard.value)
+
+
 
     return (
         <div>
             <h1 className="text-lg font-bold mb-6">Add New Board</h1>
             <Formik
                 initialValues={{
-                     name: "",
-                    //  columns: [{ name: 'Todo', tasks: [] }, { name: 'Doing', tasks: [] }]
-                    columns: []
-                    
-                    }}
+                    name: "",
+                    columns: [
+                        { name: '', tasks: [] }
+                    ]
+                }}
                 validationSchema={validate}
                 onSubmit={(values, { setSubmitting, resetForm }) => {
                     setSubmitting(true)
@@ -49,9 +56,11 @@ const CreateNewBoard = () => {
                                 <div>
                                     {values.columns.map((_, i) => (
                                         <div key={i} className="flex">
-                                            <TextInput label='' name={`columns[${i}]`} type="text" placeholder="e.g. Archived" />
+                                            {/* <TextInput label='' name={`columns[${i}]`} type="text" placeholder="e.g. Archived" /> */}
+                                            <TextInput label='' name={`columns.${i}.name`} type="text" placeholder="e.g. Archived" />
+                            
                                             <button onClick={() => arrayHelpers.remove(i)}
-                                             className="text-mediumGrey hover:text-mainRed ml-4"
+                                                className="text-mediumGrey hover:text-mainRed ml-4"
                                             >
                                                 <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg">
                                                     <g fill="currentColor" fillRule="evenodd">
@@ -66,10 +75,7 @@ const CreateNewBoard = () => {
 
                                     <button
                                         type='button'
-                                        onClick={() => arrayHelpers.push('')}  
-                                        // onClick={() => arrayHelpers.push([{name:'', columns: []}])}  
-                                        // columns: [...prev.columns, { name: "", tasks: [] }]
-                                        // onClick={() => val.push({name:"", tasks:[]})}
+                                        onClick={() => arrayHelpers.push({name: '', tasks: []})}
                                         className={'bg-[#635FC71A] rounded-full w-full py-[7px] text-mainPurple transition duration-200 text-base hover:bg-mainPurpleHover font-sans'}
                                     >
                                         {'+ Add New Column'}
@@ -88,4 +94,7 @@ const CreateNewBoard = () => {
     )
 }
 
-export default CreateNewBoard
+export default CreateNewBoard;
+
+
+

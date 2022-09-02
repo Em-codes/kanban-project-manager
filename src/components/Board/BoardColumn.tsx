@@ -5,6 +5,7 @@ import Modal from '@components/Modal'
 import TaskDetailsModal from '@components/Modal/TaskDetailsModal'
 import AddNewColumn from './AddNewColumn'
 import Task from './Task'
+import EmptyBoard from './EmptyBoard'
 
 const BoardColumn = () => {
 
@@ -24,7 +25,7 @@ const BoardColumn = () => {
                 {(val.tasks).map((task: any, { }, j: any) => (
                     task.status === val.name && (
                         <>
-                           <Task data={task} key={j} />
+                            <Task data={task} j={j} key={j} />
                         </>
                     )))}
             </ul>
@@ -35,14 +36,14 @@ const BoardColumn = () => {
 
     return (
         <>
-            <div
-                className='h-[calc(100vh-85px)] overflow-y-hidden scrollbar-thin scrollbar-thumb-mainPurple scrollbar-track-transparent flex-1 p-4 gap-[20px] bg-lightGrey dark:bg-veryDarkGrey flex'>
-                {showBoards}
-                <AddNewColumn />
-            </div>
-            {/* <Modal setShowModal={setShowDetails} showModal={showDetails}>
-                                <TaskDetailsModal taskTitle={'ghfnsg'} />
-                            </Modal> */}
+            {showBoards?.length?
+                <div
+                    className='h-[calc(100vh-85px)] overflow-y-hidden scrollbar-thin scrollbar-thumb-mainPurple scrollbar-track-transparent flex-1 p-4 gap-[20px] bg-lightGrey dark:bg-veryDarkGrey flex'>
+                    {showBoards}
+                    <AddNewColumn />
+                </div> :
+                <EmptyBoard />
+            }
         </>
     )
 }

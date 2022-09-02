@@ -4,13 +4,13 @@ import data from '../../src/data.json'
 import { v4 as uuidv4 } from "uuid";
 
 
-interface boardsProps{
-    boards : Board[],
-       
+interface boardsProps {
+    boards: Board[],
+
 }
 
-const initialState : boardsProps = {
-    boards : []
+const initialState: boardsProps = {
+    boards: []
 
 }
 
@@ -19,8 +19,8 @@ export const boardsSlice = createSlice({
     name: "boards",
     initialState,
     reducers: {
-        getAllBoards:(state, action: PayloadAction<Board[]>) => {
-            state.boards =  action.payload
+        getAllBoards: (state, action: PayloadAction<Board[]>) => {
+            state.boards = action.payload
         },
 
         createNewBoard: (state, action: PayloadAction<Board>) => {

@@ -35,8 +35,9 @@ const Header = () => {
         <div className='flex items-center justify-between w-full px-6'>
           <h2 className='font-sans text-lg font-bold'>{boardTitle}</h2>
           <div className='flex items-center gap-4'>
-            <Button children={"+ Add New Task"} padding={'py-3 px-4'} width={''} color={'text-white'} font_weight={'font-bold'} onClick={() => setIsAddNewTask(!isAddNewTask)} />
-            <Image className='cursor-pointer' src="/assets/icon-vertical-ellipsis.svg" alt="vertical ellipsis" height={16} width={4} />
+            {/* <Button children={"+ Add New Task"} padding={'py-3 px-4'} width={''} color={'text-white'} font_weight={'font-bold'} onClick={() => setIsAddNewTask(!isAddNewTask)} />
+            <Image className='cursor-pointer' src="/assets/icon-vertical-ellipsis.svg" alt="vertical ellipsis" height={16} width={4} /> */}
+            
           </div>
         </div>
       </header>

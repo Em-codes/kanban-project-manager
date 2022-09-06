@@ -2,7 +2,7 @@ import { Form, Formik, FieldArray } from "formik"
 import * as Yup from 'yup';
 import Button from "@components/shared/Button";
 import TextInput from "@components/shared/TextInput";
-import { createNewBoard } from "features/board/boardSlice";
+import { createNewBoard, createNewColumn } from "features/board/boardSlice";
 import { useAppDispatch, useAppSelector } from "app/hooks";
 import { RootState } from "app/store";
 
@@ -26,11 +26,8 @@ const AddNewColumnModal = () => {
     console.log(boardColumnsx)
 
     return (
-        boardColumnsx.name === boardNameTag &&
         <Formik
             initialValues={{
-                // name: boards[currentBoard].name,
-                name: boards[currentBoard].name,
                 columns: [
                     { name: '', tasks: [] }
                 ]
@@ -41,7 +38,7 @@ const AddNewColumnModal = () => {
 
                 //make async call
                 console.log('submit:', values);
-                dispatch(createNewBoard(values))
+                dispatch(createNewColumn(values))
                 setSubmitting(false)
                 resetForm()
             }
@@ -49,7 +46,6 @@ const AddNewColumnModal = () => {
         >
              {({ values, isSubmitting, handleSubmit }) => (
                     <Form onSubmit={handleSubmit}>
-                        {/* <TextInput label='Board Name' name="name" type="input" placeholder='eg: Web Design' /> */}
                         <label className="body-md capitalize text-mediumGrey dark:text-white mt-6 block">
                             Board Columns
                         </label>

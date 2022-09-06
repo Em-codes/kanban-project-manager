@@ -1,6 +1,7 @@
 import Reac, { useState } from 'react'
 import Image from 'next/image'
 import Button from '@components/shared/Button'
+import EditButton from '@components/shared/EditButton'
 import { useTheme } from "next-themes"
 import Modal from '@components/Modal'
 import AddNewTaskModal from '@components/Modal/AddNewTaskModal'
@@ -13,6 +14,7 @@ import { useAppSelector } from 'app/hooks'
 
 const Header = () => {
   const [isAddNewTask, setIsAddNewTask] = useState<boolean>(false)
+  const [isEditToggle, setIsEditToggle] = useState<boolean>(false)
   const { theme } = useTheme();
 
   const data = useAppSelector((state: RootState) => state.boards)
@@ -35,9 +37,11 @@ const Header = () => {
         <div className='flex items-center justify-between w-full px-6'>
           <h2 className='font-sans text-lg font-bold'>{boardTitle}</h2>
           <div className='flex items-center gap-4'>
-            {/* <Button children={"+ Add New Task"} padding={'py-3 px-4'} width={''} color={'text-white'} font_weight={'font-bold'} onClick={() => setIsAddNewTask(!isAddNewTask)} />
-            <Image className='cursor-pointer' src="/assets/icon-vertical-ellipsis.svg" alt="vertical ellipsis" height={16} width={4} /> */}
-            
+            <Button children={"+ Add New Task"} padding={'py-3 px-4'} width={''} color={'text-white'} font_weight={'font-bold'} onClick={() => setIsAddNewTask(!isAddNewTask)} />
+            <EditButton  currentBoard={boardTitle}
+            className={'-bottom-28 -left-44 border '}
+            // className="bottom-0 left-0 -translate-x-full translate-y-28"
+            />
           </div>
         </div>
       </header>

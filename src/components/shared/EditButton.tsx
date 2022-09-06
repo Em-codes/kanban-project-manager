@@ -2,13 +2,14 @@ import React, { useState } from 'react'
 import Image from 'next/image';
 import Modal from '@components/Modal';
 import DeleteBoardModal from '@components/Modal/DeleteBoardModal';
+import UpdateBoardModal from '@components/Modal/UpdateBoardModal';
 
 interface editButtonProps {
   className: string,
   currentBoard: any
 }
 
-const EditButton = ({ className, currentBoard}: editButtonProps) => {
+const EditButton = ({ className, currentBoard }: editButtonProps) => {
   const [showMenu, setShowMenu] = useState<boolean>(false);
   const [showUpdateBoardModal, setShowUpdateBoardModal] = useState<boolean>(false);
   const [showDeleteBoardModal, setShowDeleteBoardModal] = useState<boolean>(false);
@@ -28,16 +29,15 @@ const EditButton = ({ className, currentBoard}: editButtonProps) => {
             Edit board
           </button>
           <Modal showModal={showUpdateBoardModal} setShowModal={() => setShowUpdateBoardModal(!showUpdateBoardModal)}>
-            {/* <UpdateBoardModal onConfirm={() => setShowUpdateBoardModal(!showUpdateBoardModal)} /> */}
-            Edit Board
+            <UpdateBoardModal />
           </Modal>
           <button
             className="text-mainRed  text-[13px]"
             onClick={() => setShowDeleteBoardModal(true)}
-          >Delete board 
+          >Delete board
           </button>
           <Modal showModal={showDeleteBoardModal} setShowModal={() => setShowDeleteBoardModal(!showDeleteBoardModal)}>
-           <DeleteBoardModal currentBoard={currentBoard} setShowDeleteBoardModal={setShowDeleteBoardModal}/>
+            <DeleteBoardModal currentBoard={currentBoard} setShowDeleteBoardModal={setShowDeleteBoardModal} />
           </Modal>
         </>
       </div>

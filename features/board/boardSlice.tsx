@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
-import { Board, Column } from '@src/types'
+import { Board, Column, indexedBoard } from '@src/types'
 import data from '../../src/data.json'
 import { v4 as uuidv4 } from "uuid";
 
@@ -33,8 +33,14 @@ export const boardsSlice = createSlice({
         deleteBoard: (state, action: PayloadAction<string>) => {
             state.boards = state.boards.filter((board) => board.name !== action.payload)
         },
+        editBoard: (state, action: PayloadAction<any>) => {
+            state.boards = state.boards.map((board, index) => {
+                return index !== action.payload.id ? board
+                    : action.payload
+            })
+        },
     }
 })
 
-export const { getAllBoards, createNewBoard, deleteBoard } = boardsSlice.actions
+export const { getAllBoards, createNewBoard, deleteBoard, editBoard } = boardsSlice.actions
 export default boardsSlice.reducer

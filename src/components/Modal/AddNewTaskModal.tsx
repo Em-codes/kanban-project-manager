@@ -1,7 +1,7 @@
 import TextInput from '@components/shared/TextInput'
 import { Formik, FieldArray, Form } from 'formik'
 import * as Yup from 'yup'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Button from '@components/shared/Button'
 import TextArea from '@components/shared/TextArea'
 import StatustDropdown from '@components/shared/StatustDropdown'
@@ -22,6 +22,11 @@ const AddNewTaskModal = () => {
     const boardColumns =  boards?.map((val) => val.columns[currentBoard])
     const showBoards =  boardColumns?.map((val) => val.name)
 
+    useEffect(() => {
+        console.log('sb', showBoards)
+
+    },[])
+
     return (
         <div>
             <h1 className="text-lg font-bold mb-6"> Add New Task</h1>
@@ -31,7 +36,7 @@ const AddNewTaskModal = () => {
                     title: "",
                     description: "",
                     subtasks: ['', ''],
-                    // status: status
+                    status: status
                 }}
                 validationSchema={validate}
                 onSubmit={(values, { setSubmitting, resetForm }) => {
@@ -83,7 +88,7 @@ const AddNewTaskModal = () => {
                             )}
                         />
         
-                        <StatustDropdown columns={boardColumns} /> <br /> <br />
+                        <StatustDropdown columns={boardColumns}/> <br /> <br />
 
                         <Button type="submit" disabled={isSubmitting} children={'Save Changes'} width={"w-full"} padding={'py-[7px]'} color={'text-white'} />
                         <pre>{JSON.stringify(values, null, 2)}</pre>

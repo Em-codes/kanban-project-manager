@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import { useAppSelector } from 'app/hooks'
 import { RootState } from 'app/store'
-import Modal from '@components/Modal'
-import TaskDetailsModal from '@components/Modal/TaskDetailsModal'
 import AddNewColumn from './AddNewColumn'
 import Task from './Task'
 import EmptyBoard from './EmptyBoard'

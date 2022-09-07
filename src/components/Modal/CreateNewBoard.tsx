@@ -86,7 +86,7 @@ const CreateNewBoard = () => {
                         <br />
 
                         <Button type="submit" disabled={isSubmitting} children={'Save Changes'} width={"w-full"} padding={'py-[7px]'} color={'text-white'} />
-                        <pre>{JSON.stringify(values, null, 2)}</pre>
+                        {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
                     </Form>
                 )}
             </Formik>

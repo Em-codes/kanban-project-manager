@@ -7,10 +7,14 @@ import { editBoard } from 'features/board/boardSlice'
 import { useAppDispatch, useAppSelector } from 'app/hooks'
 import { RootState } from 'app/store'
 
+interface props {
+    setShowUpdateBoardModal: React.Dispatch<React.SetStateAction<boolean>>
+}
 
 
-
-const CreateNewBoard = () => {
+const UpdateBoardModal = ({setShowUpdateBoardModal}: props) => {
+    const currentBoard = useAppSelector((state: RootState) => state.currentBoard.value)
+    const data = useAppSelector((state: RootState) => state.boards.boards)
 
     const dispatch = useAppDispatch()
     const validate = Yup.object({
@@ -19,8 +23,7 @@ const CreateNewBoard = () => {
             // Yup.string().required("Column title is required"),
         // )
     })
-    const currentBoard = useAppSelector((state: RootState) => state.currentBoard.value)
-    const data = useAppSelector((state: RootState) => state.boards.boards)
+
 
 
 
@@ -29,10 +32,9 @@ const CreateNewBoard = () => {
             <h1 className="text-lg font-bold mb-6">Add New Board</h1>
             <Formik
                 initialValues={{
+                    id:currentBoard,
                     name: data[currentBoard].name,
-                    columns: [
-                        { name: '', tasks: [] }
-                    ]
+                    columns:data[currentBoard].columns
                 }}
                 validationSchema={validate}
                 onSubmit={(values, { setSubmitting, resetForm }) => {
@@ -43,6 +45,7 @@ const CreateNewBoard = () => {
                     dispatch(editBoard(values))
                     setSubmitting(false)
                     resetForm()
+                    {setShowUpdateBoardModal(false)}
                 }}
             >
                 {({ values, isSubmitting, handleSubmit }) => (
@@ -57,7 +60,6 @@ const CreateNewBoard = () => {
                                 <div>
                                     {values.columns.map((_, i) => (
                                         <div key={i} className="flex">
-                                            {/* <TextInput label='' name={`columns[${i}]`} type="text" placeholder="e.g. Archived" /> */}
                                             <TextInput label='' name={`columns.${i}.name`} type="text" placeholder="e.g. Archived" />
                             
                                             <button onClick={() => arrayHelpers.remove(i)}
@@ -76,7 +78,7 @@ const CreateNewBoard = () => {
 
                                     <button
                                         type='button'
-                                        onClick={() => arrayHelpers.push({name: '', tasks: []})}
+                                        onClick={() => arrayHelpers.push({name:"", tasks:[]})}
                                         className={'bg-[#635FC71A] rounded-full w-full py-[7px] text-mainPurple transition duration-200 text-base hover:bg-mainPurpleHover font-sans'}
                                     >
                                         {'+ Add New Column'}
@@ -86,8 +88,9 @@ const CreateNewBoard = () => {
                         />
                         <br />
 
-                        <Button type="submit" disabled={isSubmitting} children={'Save Changes'} width={"w-full"} padding={'py-[7px]'} color={'text-white'} />
-                        <pre>{JSON.stringify(values, null, 2)}</pre>
+                        <Button type="submit" disabled={isSubmitting} children={ 'Save Changes' } width={"w-full"} padding={'py-[7px]'} color={'text-white'} />
+                        {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
+                        
                     </Form>
                 )}
             </Formik>
@@ -95,7 +98,7 @@ const CreateNewBoard = () => {
     )
 }
 
-export default CreateNewBoard;
+export default UpdateBoardModal;
 
 
 

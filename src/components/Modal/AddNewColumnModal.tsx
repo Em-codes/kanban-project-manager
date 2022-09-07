@@ -2,35 +2,30 @@ import { Form, Formik, FieldArray } from "formik"
 import * as Yup from 'yup';
 import Button from "@components/shared/Button";
 import TextInput from "@components/shared/TextInput";
-import { createNewBoard, createNewColumn } from "features/board/boardSlice";
+import { editBoard } from "features/board/boardSlice";
 import { useAppDispatch, useAppSelector } from "app/hooks";
 import { RootState } from "app/store";
 
 const AddNewColumnModal = () => {
     const dispatch = useAppDispatch();
+    const currentBoard = useAppSelector((state: RootState) => state.currentBoard.value)
+    const data = useAppSelector((state: RootState) => state.boards.boards)
 
+    console.log('ega', data[currentBoard].columns )
     const validate = Yup.object({
         name: Yup.string().required("Can't be empty"),
     })
 
-    // const createColumn = (column) => {
-    //     column.id = uuidv4();
-    //     column.tasks = [];
-    //     currentBoard.columns.push(column);
-    //     setBoards([...boards]);
-    //   };
-    const boards = useAppSelector((state: RootState) => state.boards.boards)
-    const currentBoard = useAppSelector((state: RootState) => state.currentBoard.value)
-    const boardNameTag = boards[currentBoard] && boards[currentBoard].name
-    const boardColumnsx = boards?.find(element => element.name === boardNameTag);
-    console.log(boardColumnsx)
+
+
 
     return (
         <Formik
             initialValues={{
-                columns: [
-                    { name: '', tasks: [] }
-                ]
+                    id:currentBoard,
+                    name: data[currentBoard].name,
+                    // columns:[{name: '', tasks: []}]
+                    columns:[{name: '', tasks: []},...data[currentBoard].columns]
             }}
             // validationSchema={validate}
             onSubmit={(values, { setSubmitting, resetForm }) => {
@@ -38,7 +33,7 @@ const AddNewColumnModal = () => {
 
                 //make async call
                 console.log('submit:', values);
-                dispatch(createNewColumn(values))
+                dispatch(editBoard(values))
                 setSubmitting(false)
                 resetForm()
             }
@@ -57,7 +52,7 @@ const AddNewColumnModal = () => {
                                         <div key={i} className="flex">
                                             <TextInput label='' name={`columns.${i}.name`} type="text" placeholder="e.g. Archived" />
                             
-                                            <button onClick={() => arrayHelpers.remove(i)}
+                                            {/* <button onClick={() => arrayHelpers.remove(i)}
                                                 className="text-mediumGrey hover:text-mainRed ml-4"
                                             >
                                                 <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg">
@@ -66,7 +61,7 @@ const AddNewColumnModal = () => {
                                                         <path d="M0 2.122 2.122 0 14.85 12.728l-2.122 2.122z" />
                                                     </g>
                                                 </svg>
-                                            </button>
+                                            </button> */}
                                         </div>
                                     ))}
                                     <br />
@@ -84,7 +79,7 @@ const AddNewColumnModal = () => {
                         <br />
 
                         <Button type="submit" disabled={isSubmitting} children={'Save Changes'} width={"w-full"} padding={'py-[7px]'} color={'text-white'} />
-                        <pre>{JSON.stringify(values, null, 2)}</pre>
+                        {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
                     </Form>
                 // </div>
             )}

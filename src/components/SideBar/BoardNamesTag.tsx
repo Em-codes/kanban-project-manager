@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import data from '../../../src/data.json'
+import React from 'react'
 import CreateNewBoardCTA from './CreateNewBoardCTA'
 import { RootState } from 'app/store'
 import { useAppSelector, useAppDispatch } from 'app/hooks'
@@ -11,15 +10,11 @@ import { setCurrentBoard } from 'features/board/currentBoardSlice'
 const BoardNamesTag = () => {
     const dispatch = useAppDispatch();
     const currentBoard = useAppSelector((state: RootState) => state.currentBoard)
-    // console.log(data)
     const boardIndexData = useAppSelector((state: RootState) => state.boards)
     let boardsData = boardIndexData.boards
-    // console.log(currentBoardSlice)
 
-    // const boardNameTagL = boardsData.map((val, i: number) => i)
-    // let selectedStyle = boardIndexData === boardNameTagL
 
-    
+
 
 
     const boardNameTag = boardsData.map((val, i: any) => (
@@ -34,7 +29,7 @@ const BoardNamesTag = () => {
 
     return (
         <div>
-            <div className='font-bold text-sm text-mediumGrey tracking-widest pl-6 pt-7 pb-8 uppercase'>all boards ({data.boards.length})</div>
+            <div className='font-bold text-sm text-mediumGrey tracking-widest pl-6 pt-7 pb-8 uppercase'>all boards ({boardsData.length})</div>
             <div>{boardNameTag}</div>
             <CreateNewBoardCTA />
         </div>

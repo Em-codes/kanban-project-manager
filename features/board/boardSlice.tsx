@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
 import { Board, Column, indexedBoard } from '@src/types'
-import data from '../../src/data.json'
 import { v4 as uuidv4 } from "uuid";
 
 
@@ -30,14 +29,15 @@ export const boardsSlice = createSlice({
         //     const x = state.boards?.columnns
         //     x.push(action.payload)
         // },
-        deleteBoard: (state, action: PayloadAction<string>) => {
-            state.boards = state.boards.filter((board) => board.name !== action.payload)
+        deleteBoard: (state, action: PayloadAction<String>) => {
+            state.boards = state.boards.filter((board) => board?.name !== action.payload)
         },
-        editBoard: (state, action: PayloadAction<any>) => {
-            state.boards = state.boards.map((board, index) => {
+        editBoard: (state, action: PayloadAction<indexedBoard>) => {
+           const editedData = state.boards.map((board, index) => {
                 return index !== action.payload.id ? board
                     : action.payload
             })
+            state.boards = (editedData)
         },
     }
 })

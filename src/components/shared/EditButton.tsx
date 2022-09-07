@@ -29,7 +29,7 @@ const EditButton = ({ className, currentBoard }: editButtonProps) => {
             Edit board
           </button>
           <Modal showModal={showUpdateBoardModal} setShowModal={() => setShowUpdateBoardModal(!showUpdateBoardModal)}>
-            <UpdateBoardModal />
+            <UpdateBoardModal setShowUpdateBoardModal={setShowUpdateBoardModal}/>
           </Modal>
           <button
             className="text-mainRed  text-[13px]"

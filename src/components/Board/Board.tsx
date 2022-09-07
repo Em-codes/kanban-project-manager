@@ -1,7 +1,10 @@
-import Modal from "@components/Modal";
 import ShowSidebar from "./ShowSideBar";
-import { useState } from 'react'
 import BoardColumn from "./BoardColumn";
+import { useAppSelector } from 'app/hooks'
+import { RootState } from 'app/store'
+import CreateNewBoard from "@components/Modal/CreateNewBoard";
+import NoBoard from "./NoBoard";
+
 
 interface props {
   isSidebar: boolean,
@@ -9,13 +12,14 @@ interface props {
 }
 
 const Board = ({ isSidebar, setIsSidebar }: props): JSX.Element => {
-  const [isModal, setIsModal] = useState(false)
+  const boards = useAppSelector((state: RootState) => state.boards.boards)
 
   return (
     <>
       <ShowSidebar setIsSidebar={setIsSidebar} isSidebar={isSidebar} />
       <div className="bg-lightGrey w-full dark:bg-veryDarkGrey">
-        <BoardColumn />
+        {boards?.length ? <BoardColumn /> : <NoBoard />  }
+        
       </div>
     </>
   )

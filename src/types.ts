@@ -17,8 +17,8 @@ export interface Column {
 
 export interface Board {
     name: string;
-    // columns: Column[] ;
-    columns: { name: string; tasks: Task[] }[]
+    columns: Column[] ;
+    // columns: { name: string; tasks: Task[] }[]
   }
 
 export interface indexedBoard {
@@ -27,7 +27,7 @@ export interface indexedBoard {
     id: number | null;
 }
 
-export type BoardsContextType = {
-    boardsData: Board[] | null;
-}
+// export type BoardsContextType = {
+//     boardsData: Board[] | null;
+// }
  

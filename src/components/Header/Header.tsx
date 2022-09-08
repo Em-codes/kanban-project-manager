@@ -13,8 +13,8 @@ import { useAppSelector } from 'app/hooks'
 
 
 const Header = () => {
-  const [isAddNewTask, setIsAddNewTask] = useState<boolean>(false)
-  const [isEditToggle, setIsEditToggle] = useState<boolean>(false)
+  const [isAddNewTask, setIsAddNewTask] = useState<boolean>(true)
+  // const [isEditToggle, setIsEditToggle] = useState<boolean>(false)
   const { theme } = useTheme();
 
   const data = useAppSelector((state: RootState) => state.boards.boards)

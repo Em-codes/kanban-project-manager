@@ -34,15 +34,16 @@ const StatustDropdown = ({ boardColumns, currentStatus, setCurrentStatus }: stat
           <div className="py-1" >
             {boardColumns.map((column: any, i: number) => (
               <span
-                onClick={() => {
-                  if (currentStatus) {
-                    setCurrentStatus(column.name);
-                  } else {
-                    // changeTaskStatus(data.id, column.name);
-                    setCurrentStatus(currentStatus);
-                  }
-                  setShowDropDown(false)
-                }}
+                // onClick={() => {
+                //   if (currentStatus) {
+                //     setCurrentStatus(column.name);
+                //   } else {
+                //     // changeTaskStatus(data.id, column.name);
+                //     setCurrentStatus(currentStatus);
+                //   }
+                //   setShowDropDown(false)
+                // }}
+                onClick={() => setCurrentStatus(column.name)}
                 key={i}
                 className="text-mediumGrey block px-4 py-2 text-sm hover:text-mainPurple hover:bg-mainPurple dark:hover:bg-white hover:bg-opacity-10 dark:hover:bg-opacity-10"
               >

@@ -13,7 +13,7 @@ import { useAppSelector } from 'app/hooks'
 
 
 const Header = () => {
-  const [isAddNewTask, setIsAddNewTask] = useState<boolean>(true)
+  const [isAddNewTask, setIsAddNewTask] = useState<boolean>(false)
   // const [isEditToggle, setIsEditToggle] = useState<boolean>(false)
   const { theme } = useTheme();
 

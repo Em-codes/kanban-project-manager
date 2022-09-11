@@ -20,30 +20,30 @@ const AddNewTaskModal = () => {
         )
     })
 
-    // const boards = useAppSelector((state: RootState) => state.boards.boards)
-    // const currentBoard = useAppSelector((state: RootState) => state.currentBoard.value)
-    // const boardColumns =  boards?.map((val) => val.columns[currentBoard])
-    // const showBoards =  boardColumns?.map((val) => val.name)
+
 
     const boards = useAppSelector((state: RootState) => state.boards.boards)
     const currentBoard = useAppSelector((state: RootState) => state.currentBoard.value)
     const boardNameTag = boards[currentBoard] && boards[currentBoard].name
     const boardColumnsx = boards?.find(element => element.name === boardNameTag)?.columns;
 
-    useEffect(() => {
-        // console.log('sb', boardColumnsx[0].name)
-        console.log(boardNameTag)
 
-    },[])
     // const [currentStatus, setCurrentStatus] = useState(boardColumnsx && boardColumnsx[0].name);
     const [currentStatus, setCurrentStatus] = useState('Todo');
 
-    const Task = {
-        title: "",
-        description: "",
-        subtasks: [],
-        status: currentStatus,
-    }
+    useEffect(() => {
+        // console.log('sb', boardColumnsx[0].name)
+        console.log(boardNameTag)
+        setCurrentStatus(currentStatus)
+
+    }, [])
+
+    // const Task = {
+    //     title: "",
+    //     description: "",
+    //     subtasks: [],
+    //     status: currentStatus,
+    // }
 
     return (
         <div>
@@ -51,12 +51,14 @@ const AddNewTaskModal = () => {
             <Formik
                 // {task: newTask, boardName: board.name, columnName: columnName}
                 initialValues={{
-                    
-                    task:{title: "",
-                    description: "",
-                    subtasks: [],
-                    status: currentStatus,},
-                    boardName:boardNameTag,
+
+                    task: {
+                        title: "",
+                        description: "",
+                        subtasks: [{ title: "", isCompleted: false }],
+                        status: currentStatus,
+                    },
+                    boardName: boardNameTag,
                     columnName: currentStatus
 
                 }}
@@ -77,17 +79,18 @@ const AddNewTaskModal = () => {
                         <TextInput label='Title' name={'task.title'} type="input" placeholder='eg: Take Coffee Break' />
                         <TextArea label="Description" name={'task.description'} type="text" placeholder="e.g. It's always good to take a break. This 15 minute break will recharge the batteries a little." />
 
-                         <label className="body-md text-sm font-bold capitalize text-mediumGrey dark:text-white mt-6 block">
+                        <label className="body-md text-sm font-bold capitalize text-mediumGrey dark:text-white mt-6 block">
                             subtasks
                         </label>
 
-                        <FieldArray name="subtasks"
-                            render={val => (
+                        <FieldArray name="task.subtasks"
+                            render={arrayHelpers => (
                                 <div>
                                     {values.task.subtasks.map((_, i) => (
                                         <div key={i} className="flex">
-                                            <TextInput label='' name={`subtasks[${i}]`} type="text" placeholder="e.g. Archived" />
-                                            <button onClick={() => val.remove(i)}
+                                            <TextInput label='' name={`task.subtasks.${i}.title`} type="text" placeholder="e.g. Archived" />
+
+                                            <button onClick={() => arrayHelpers.remove(i)}
                                                 className="text-mediumGrey hover:text-mainRed ml-4"
                                             >
                                                 <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg">
@@ -103,7 +106,7 @@ const AddNewTaskModal = () => {
 
                                     <button
                                         type='button'
-                                        onClick={() => val.push('')}
+                                        onClick={() => arrayHelpers.push({ title: "", isCompleted: false })}
                                         className={'bg-[#635FC71A] rounded-full w-full py-[7px] text-mainPurple transition duration-200 text-base hover:bg-mainPurpleHover font-sans'}
                                     >
                                         {'+ Add New Subtask'}
@@ -111,8 +114,8 @@ const AddNewTaskModal = () => {
                                 </div>
                             )}
                         />
-        
-                        {/* <StatustDropdown boardColumns={boardColumnsx} currentStatus={currentStatus} setCurrentStatus={setCurrentStatus}/> <br /> <br /> */}
+
+                        <StatustDropdown boardColumns={boardColumnsx} currentStatus={currentStatus} setCurrentStatus={setCurrentStatus} /> <br /> <br />
 
                         <Button type="submit" disabled={isSubmitting} children={'Save Changes'} width={"w-full"} padding={'py-[7px]'} color={'text-white'} />
                         <pre>{JSON.stringify(values, null, 2)}</pre>
@@ -123,4 +126,4 @@ const AddNewTaskModal = () => {
     )
 }
 
-export default AddNewTaskModal
+export default AddNewTaskModal;

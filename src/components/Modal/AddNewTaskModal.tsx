@@ -47,7 +47,7 @@ const AddNewTaskModal = () => {
 
     return (
         <div>
-            <h1 className="text-lg font-bold mb-6"> Add New Task</h1>
+            <h1 className="text-lg font-bold mb-6">+ Add New Task</h1>
             <Formik
                 // {task: newTask, boardName: board.name, columnName: columnName}
                 initialValues={{

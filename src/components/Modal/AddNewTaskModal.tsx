@@ -28,8 +28,8 @@ const AddNewTaskModal = () => {
     const boardColumnsx = boards?.find(element => element.name === boardNameTag)?.columns;
 
 
-    // const [currentStatus, setCurrentStatus] = useState(boardColumnsx && boardColumnsx[0].name);
-    const [currentStatus, setCurrentStatus] = useState('Todo');
+    const [currentStatus, setCurrentStatus] = useState(boardColumnsx && boardColumnsx[0].name);
+    // const [currentStatus, setCurrentStatus] = useState('Todo');
 
     useEffect(() => {
         // console.log('sb', boardColumnsx[0].name)
@@ -38,18 +38,12 @@ const AddNewTaskModal = () => {
 
     }, [])
 
-    // const Task = {
-    //     title: "",
-    //     description: "",
-    //     subtasks: [],
-    //     status: currentStatus,
-    // }
+ 
 
     return (
         <div>
             <h1 className="text-lg font-bold mb-6">+ Add New Task</h1>
             <Formik
-                // {task: newTask, boardName: board.name, columnName: columnName}
                 initialValues={{
 
                     task: {
@@ -68,7 +62,7 @@ const AddNewTaskModal = () => {
 
                     //make async call
                     dispatch(addTask(values))
-                    values.task.status = currentStatus;
+                    // values.task.status = currentStatus;
                     console.log('submit:', values);
                     setSubmitting(false)
                     resetForm()

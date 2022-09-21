@@ -40,26 +40,18 @@ export const boardsSlice = createSlice({
             const column = board?.columns.find(column => column.name === action.payload.task.status)
             column?.tasks.unshift(action.payload.task)
         },
-        // changeTaskStatus: (state, action: PayloadAction<{ taskStatus: string; index: number; boardName: string; columnName: string }>) => {
-        //     const board = state.boards.find(board => board.name === action.payload.boardName)
-        //     const column = board?.columns.find(column => {
-        //         return column.name === action.payload.columnName
-        //     })
-        //     const task = column?.tasks[action.payload.index]
-        //     if(task){
-        //         task.status = action.payload.taskStatus
-        //     }
-        // },
-        // toggleSubtask: (taskId, subtaskId) => {
-        //     const task = currentBoard.tasks.find((task) => task.id === taskId);
-        //     const subtask = task.subtasks[subtaskId];
-        //     subtask.isCompleted
-        //       ? (subtask.isCompleted = false)
-        //       : (subtask.isCompleted = true);
-        //     setBoards([...boards]);
-        //   };
+        editSubtasks: (state, action: PayloadAction<{ task: Task; index: number; boardName: string; columnName: string }>) => {
+            const board = state.boards.find(board => board.name === action.payload.boardName)
+            const column = board?.columns.find(column => {
+                return column.name === action.payload.columnName
+            })
+            const task = column?.tasks[action.payload.index]
+            if(task){
+                task.subtasks = action.payload.task.subtasks
+            }
+        },
     }
 })
 
-export const { getAllBoards, createNewBoard, deleteBoard, editBoard, addTask } = boardsSlice.actions
+export const { getAllBoards, createNewBoard, deleteBoard, editBoard, addTask, editSubtasks } = boardsSlice.actions
 export default boardsSlice.reducer

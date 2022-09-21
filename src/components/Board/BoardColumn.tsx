@@ -23,7 +23,7 @@ const BoardColumn = () => {
                 {(val.tasks).map((task: any, { }, j: any) => (
                     task.status === val.name && (
                         <>
-                            <Task data={task} j={j} key={j} />
+                            <Task data={task} j={j} key={j} boardNameTag={boardNameTag} />
                         </>
                     )))}
             </ul>

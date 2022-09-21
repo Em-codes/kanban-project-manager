@@ -1,15 +1,31 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
+import { useAppDispatch, useAppSelector } from 'app/hooks'
+import { editSubtasks } from '../../../features/board/boardSlice'
+import SubTaskItem from './SubTaskItem';
+import { RootState } from 'app/store'
+import { Task } from '@src/types';
 
 interface props {
-    data: any
+    data: Task;
+    j: number
+    boardNameTag: string
 }
 
-const TaskDetailsModal = ({ data }: props) => {    
+const TaskDetailsModal = ({ data, j, boardNameTag }: props) => {
+    const dispatch = useAppDispatch()
+    const currentBoard = useAppSelector((state: RootState) => state?.currentBoard.value)
+    const subtasks = [...data.subtasks]
     
-    const handleOnchange = ({e, subtask}) => {
-        console.log(e.target.checked, subtask)
-    }
+    const changeSubtaskStatus = (title: string) => {
+        const newSubtasks = subtasks.map((subtask: any) => {
+          return subtask.title !== title ? subtask : {...subtask, isCompleted: !subtask.isCompleted}
+        })
+        console.log(newSubtasks)
+        const newTask = {...data, subtasks: newSubtasks}
+        console.log('nt',newTask)
+        // dispatch(editSubtasks({task: newTask, index: currentBoard, boardName:boardNameTag, columnName: data.status}))
+      }
 
     return (
         <>
@@ -21,24 +37,14 @@ const TaskDetailsModal = ({ data }: props) => {
                 {data.description ? data.description : 'no description'}
             </p>
             <h3 className="mt-6 mb-4 text-[13px] font-bold text-mediumGrey dark:text-white">
-                Subtasks ({2} of {data.subtasks.length})
+                Subtasks ({data.subtasks.filter((val: any) => val.isCompleted).length} of {data.subtasks.length})
             </h3>
             <form>
             {
-                data.subtasks.map((subtask: any, i:number) => (
-                    <label
-                        key={i}
-                        htmlFor={`${subtask}-${i}`}
-                        className={`body-md p-3 mb-2 inline-flex w-full rounded transition bg-lightGrey cursor-pointer hover:bg-mainPurple hover:bg-opacity-25 dark:text-white dark:bg-veryDarkGrey dark:hover:bg-mainPurple dark:hover:bg-opacity-25`}>
-                        <input
-                            type="checkbox"
-                            // checked={''}
-                            className="mr-3 accent-mainPurple"
-                            onChange={e => handleOnchange({e, subtask})}
-                        />
-                        <span className={`${subtask.isCompleted ? "opacity-50 line-through" : "opacity-100"} transition`}>{subtask.title}</span>
-                    </label>
-                ))
+                data.subtasks.map((subtask: any, i:number) => {
+                return <SubTaskItem subtask={subtask} i={i} key={i} changeSubtaskStatus={() => changeSubtaskStatus(subtask.title)} />
+                
+        })
             }
             </form>
         </>

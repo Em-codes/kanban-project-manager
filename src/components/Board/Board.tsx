@@ -19,7 +19,6 @@ const Board = ({ isSidebar, setIsSidebar }: props): JSX.Element => {
       <ShowSidebar setIsSidebar={setIsSidebar} isSidebar={isSidebar} />
       <div className="bg-lightGrey w-full dark:bg-veryDarkGrey">
         {boards?.length ? <BoardColumn /> : <NoBoard />  }
-        
       </div>
     </>
   )

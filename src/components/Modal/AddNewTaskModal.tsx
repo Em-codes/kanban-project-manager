@@ -29,7 +29,6 @@ const AddNewTaskModal = () => {
 
 
     const [currentStatus, setCurrentStatus] = useState(boardColumnsx && boardColumnsx[0].name);
-    // const [currentStatus, setCurrentStatus] = useState('Todo');
 
     useEffect(() => {
         // console.log('sb', boardColumnsx[0].name)
@@ -62,7 +61,6 @@ const AddNewTaskModal = () => {
 
                     //make async call
                     dispatch(addTask(values))
-                    // values.task.status = currentStatus;
                     console.log('submit:', values);
                     setSubmitting(false)
                     resetForm()
@@ -70,8 +68,8 @@ const AddNewTaskModal = () => {
             >
                 {({ values, isSubmitting, handleSubmit }) => (
                     <Form onSubmit={handleSubmit}>
-                        <TextInput label='Title' name={'task.title'} type="input" placeholder='eg: Take Coffee Break' />
-                        <TextArea label="Description" name={'task.description'} type="text" placeholder="e.g. It's always good to take a break. This 15 minute break will recharge the batteries a little." />
+                        {/* <TextInput label='Title' name={'task.title'} type="input" placeholder='eg: Take Coffee Break' /> */}
+                        {/* <TextArea label="Description" name={'task.description'} type="text" placeholder="e.g. It's always good to take a break. This 15 minute break will recharge the batteries a little." /> */}
 
                         <label className="body-md text-sm font-bold capitalize text-mediumGrey dark:text-white mt-6 block">
                             subtasks
@@ -82,9 +80,9 @@ const AddNewTaskModal = () => {
                                 <div>
                                     {values.task.subtasks.map((_, i) => (
                                         <div key={i} className="flex">
-                                            <TextInput label='' name={`task.subtasks.${i}.title`} type="text" placeholder="e.g. Archived" />
+                                            {/* <TextInput label='' name={`task.subtasks.${i}.title`} type="text" placeholder="e.g. Archived" /> */}
 
-                                            <button onClick={() => arrayHelpers.remove(i)}
+                                            {/* <button onClick={() => arrayHelpers.remove(i)}
                                                 className="text-mediumGrey hover:text-mainRed ml-4"
                                             >
                                                 <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg">
@@ -93,18 +91,18 @@ const AddNewTaskModal = () => {
                                                         <path d="M0 2.122 2.122 0 14.85 12.728l-2.122 2.122z" />
                                                     </g>
                                                 </svg>
-                                            </button>
+                                            </button> */}
                                         </div>
                                     ))}
                                     <br />
 
-                                    <button
+                                    {/* <button
                                         type='button'
                                         onClick={() => arrayHelpers.push({ title: "", isCompleted: false })}
                                         className={'bg-[#635FC71A] rounded-full w-full py-[7px] text-mainPurple transition duration-200 text-base hover:bg-mainPurpleHover font-sans'}
                                     >
                                         {'+ Add New Subtask'}
-                                    </button>
+                                    </button> */}
                                 </div>
                             )}
                         />

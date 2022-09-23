@@ -1,31 +1,35 @@
-import React, { useState } from 'react'
+import React, { } from 'react'
 import Image from 'next/image'
-import { useAppDispatch, useAppSelector } from 'app/hooks'
+import { useAppDispatch } from 'app/hooks'
 import { editSubtasks } from '../../../features/board/boardSlice'
 import SubTaskItem from './SubTaskItem';
-import { RootState } from 'app/store'
 import { Task } from '@src/types';
+import { CircleWavyCheck } from 'phosphor-react'
+import StatustDropdown from '@components/shared/StatustDropdown';
 
 interface props {
     data: Task;
+    completedTaskCount: number
+    i: number
     j: number
     boardNameTag: string
 }
 
-const TaskDetailsModal = ({ data, j, boardNameTag }: props) => {
+const TaskDetailsModal = ({ data, j, completedTaskCount, i, boardNameTag }: props) => {
     const dispatch = useAppDispatch()
-    const currentBoard = useAppSelector((state: RootState) => state?.currentBoard.value)
     const subtasks = [...data.subtasks]
-    
-    const changeSubtaskStatus = (title: string) => {
-        const newSubtasks = subtasks.map((subtask: any) => {
-          return subtask.title !== title ? subtask : {...subtask, isCompleted: !subtask.isCompleted}
+
+
+    const onChangeSubtaskStatus = (title: string) => {
+        const newSubtasks = subtasks.map(subtask => {
+            return subtask.title !== title ? subtask
+                : { ...subtask, isCompleted: !subtask.isCompleted }
         })
         console.log(newSubtasks)
-        const newTask = {...data, subtasks: newSubtasks}
-        console.log('nt',newTask)
-        // dispatch(editSubtasks({task: newTask, index: currentBoard, boardName:boardNameTag, columnName: data.status}))
-      }
+        const newTask = { ...data, subtasks: newSubtasks }
+        dispatch(editSubtasks({ task: newTask, index: j, boardName: boardNameTag, columnName: data.status }))
+    }
+
 
     return (
         <>
@@ -36,17 +40,20 @@ const TaskDetailsModal = ({ data, j, boardNameTag }: props) => {
             <p className="text-[13px] text-mediumGrey">
                 {data.description ? data.description : 'no description'}
             </p>
-            <h3 className="mt-6 mb-4 text-[13px] font-bold text-mediumGrey dark:text-white">
-                Subtasks ({data.subtasks.filter((val: any) => val.isCompleted).length} of {data.subtasks.length})
+            <h3 className="flex items-center mt-6 mb-4 text-[13px] font-bold text-mediumGrey dark:text-white">
+                Subtasks ({completedTaskCount} of {data.subtasks.length})&nbsp;
+                 {completedTaskCount === data.subtasks.length && <CircleWavyCheck size={28} color="#635FC7" weight="thin" /> }
             </h3>
+
             <form>
-            {
-                data.subtasks.map((subtask: any, i:number) => {
-                return <SubTaskItem subtask={subtask} i={i} key={i} changeSubtaskStatus={() => changeSubtaskStatus(subtask.title)} />
-                
-        })
-            }
+                {
+                    subtasks.map((subtask: any, i: number) => {
+                        return <SubTaskItem subtask={subtask} i={i} key={subtask.title} onChangeSubtaskStatus={() => onChangeSubtaskStatus(subtask.title)} />
+
+                    })
+                }
             </form>
+            <StatustDropdown boardColumns={data} currentStatus={data.status} />
         </>
     )
 }

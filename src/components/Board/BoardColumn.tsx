@@ -13,6 +13,7 @@ const BoardColumn = () => {
     const boardColumnsx = boards?.find(element => element.name === boardNameTag);
 
 
+
     const showBoards = (boardColumnsx?.columns)?.map((val, i) =>
         <div key={i} className='column w-[280px] shrink-0'>
             <h3 className="text-[13px] tracking-widest font-bold text-mediumGrey uppercase mb-6">
@@ -20,10 +21,10 @@ const BoardColumn = () => {
                 {val.name} ({val.tasks.length})
             </h3>
             <ul className="scrollbar-thin scrollbar-thumb-mainPurple scrollbar-track-transparent overflow-y-scroll h-full pb-12 flex flex-col gap-5">
-                {(val.tasks).map((task: any, { }, j: any) => (
+                {(val.tasks).map((task: any, j: any) => (
                     task.status === val.name && (
                         <>
-                            <Task data={task} j={j} key={j} boardNameTag={boardNameTag} />
+                            <Task  data={task} i={i} j={j} boardNameTag={boardNameTag} />
                         </>
                     )))}
             </ul>

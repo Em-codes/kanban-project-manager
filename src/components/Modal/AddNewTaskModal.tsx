@@ -3,12 +3,13 @@ import { Formik, FieldArray, Form } from 'formik'
 import * as Yup from 'yup'
 import React, { useEffect } from 'react'
 import Button from '@components/shared/Button'
-import TextArea from '@components/shared/TextArea'
 import StatustDropdown from '@components/shared/StatustDropdown'
+import TextArea from '@components/shared/TextArea'
 import { useAppDispatch, useAppSelector } from 'app/hooks'
 import { RootState } from 'app/store'
 import { useState } from 'react'
 import { addTask } from '../../../features/board/boardSlice'
+import Select from './Select'
 
 const AddNewTaskModal = () => {
     const dispatch = useAppDispatch()
@@ -28,15 +29,8 @@ const AddNewTaskModal = () => {
     const boardColumnsx = boards?.find(element => element.name === boardNameTag)?.columns;
 
 
-    const [currentStatus, setCurrentStatus] = useState(boardColumnsx && boardColumnsx[0].name);
-
-    useEffect(() => {
-        // console.log('sb', boardColumnsx[0].name)
-        console.log(boardNameTag)
-        setCurrentStatus(currentStatus)
-
-    }, [])
-
+    const [status, setStatus] = useState(boardColumnsx && boardColumnsx[0].name);
+    // const [currentFruit, setCurrentFruit] = useState(boardColumnsx && boardColumnsx[0].name)
  
 
     return (
@@ -49,10 +43,10 @@ const AddNewTaskModal = () => {
                         title: "",
                         description: "",
                         subtasks: [{ title: "", isCompleted: false }],
-                        status: currentStatus,
+                        status:status,
                     },
                     boardName: boardNameTag,
-                    columnName: currentStatus
+                    columnName:status
 
                 }}
                 // validationSchema={validate}
@@ -62,14 +56,16 @@ const AddNewTaskModal = () => {
                     //make async call
                     dispatch(addTask(values))
                     console.log('submit:', values);
+                    // values.task.status = currentFruit
+                    // values.columnName = currentFruit
                     setSubmitting(false)
                     resetForm()
                 }}
             >
                 {({ values, isSubmitting, handleSubmit }) => (
                     <Form onSubmit={handleSubmit}>
-                        {/* <TextInput label='Title' name={'task.title'} type="input" placeholder='eg: Take Coffee Break' /> */}
-                        {/* <TextArea label="Description" name={'task.description'} type="text" placeholder="e.g. It's always good to take a break. This 15 minute break will recharge the batteries a little." /> */}
+                        <TextInput label='Title' name={'task.title'} type="input" placeholder='eg: Take Coffee Break' />
+                        <TextArea label="Description" name={'task.description'} type="text" placeholder="e.g. It's always good to take a break. This 15 minute break will recharge the batteries a little." />
 
                         <label className="body-md text-sm font-bold capitalize text-mediumGrey dark:text-white mt-6 block">
                             subtasks
@@ -107,7 +103,8 @@ const AddNewTaskModal = () => {
                             )}
                         />
 
-                        <StatustDropdown boardColumns={boardColumnsx} currentStatus={currentStatus} setCurrentStatus={setCurrentStatus} /> <br /> <br />
+                        <StatustDropdown boardColumns={boardColumnsx} status={status}  setStatus={setStatus}/> <br /> <br />
+                        {/* <Select boardColumns={boardColumnsx} setCurrentFruit={setCurrentFruit}/> */}
 
                         <Button type="submit" disabled={isSubmitting} children={'Save Changes'} width={"w-full"} padding={'py-[7px]'} color={'text-white'} />
                         <pre>{JSON.stringify(values, null, 2)}</pre>

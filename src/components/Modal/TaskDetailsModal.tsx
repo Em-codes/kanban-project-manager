@@ -53,7 +53,7 @@ const TaskDetailsModal = ({ data, j, completedTaskCount, i, boardNameTag }: prop
                     })
                 }
             </form>
-            <StatustDropdown boardColumns={data} currentStatus={data.status} />
+            {/* <StatustDropdown boardColumns={data} currentStatus={data.status} /> */}
         </>
     )
 }

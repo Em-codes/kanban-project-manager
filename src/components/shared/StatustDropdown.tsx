@@ -18,7 +18,6 @@ const StatustDropdown = ({ boardColumns, status, setStatus }: statusProps) => {
       prevColumn.tasks = prevColumn.tasks.filter((id) => id !== taskId);
       column.tasks.push(taskId);
       task.status = column.name;
-      // setBoards([...boards]);
     };
 
 

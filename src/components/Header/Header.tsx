@@ -39,6 +39,7 @@ const Header = () => {
             <Button children={"+ Add New Task"} padding={'py-3 px-4'} width={''} color={'text-white'} font_weight={'font-bold'} onClick={() => setIsAddNewTask(!isAddNewTask)} />
             <EditButton  currentBoard={boardTitle}
             className={'-bottom-28 -left-44 border '}
+            type="Board"
             // className="bottom-0 left-0 -translate-x-full translate-y-28"
             />
           </div>

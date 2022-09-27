@@ -10,8 +10,13 @@ import { RootState } from 'app/store'
 import { useState } from 'react'
 import { addTask } from '../../../features/board/boardSlice'
 import Select from './Select'
+import { Task } from '@src/types'
 
-const AddNewTaskModal = () => {
+interface Props {
+    task: Task
+}
+
+const AddNewTaskModal = ({task}: Props) => {
     const dispatch = useAppDispatch()
 
     const validate = Yup.object({
@@ -28,34 +33,26 @@ const AddNewTaskModal = () => {
     const boardNameTag = boards[currentBoard] && boards[currentBoard].name
     const boardColumnsx = boards?.find(element => element.name === boardNameTag)?.columns;
 
+    console.log('ts', task.subtasks)
+
 
     const [status, setStatus] = useState(boardColumnsx && boardColumnsx[0].name);
-    // const [currentFruit, setCurrentFruit] = useState(boardColumnsx && boardColumnsx[0].name)
- 
-    // const changeTaskStatus = (taskId, status) => {
-    //     const task = currentBoard.tasks.find((task) => task.id === taskId);
-    //     const column = columns.find((column) => column.name === status);
-    //     const prevColumn = columns.find((column) => column.name === task.status);
-    //     prevColumn.tasks = prevColumn.tasks.filter((id) => id !== taskId);
-    //     column.tasks.push(taskId);
-    //     task.status = column.name;
-    //     setBoards([...boards]);
-    //   };
+
 
     return (
         <div>
-            <h1 className="text-lg font-bold mb-6">+ Add New Task</h1>
+            <h1 className="text-lg font-bold mb-6">Edit Task</h1>
             <Formik
                 initialValues={{
 
                     task: {
-                        title: "",
-                        description: "",
-                        subtasks: [{ title: "", isCompleted: false }],
-                        status:status,
+                        title:task.title ,
+                        description: task.description,
+                        subtasks:task.subtasks,
+                        status:task.status,
                     },
                     boardName: boardNameTag,
-                    columnName:status
+                    columnName:task.status
 
                 }}
                 // validationSchema={validate}
@@ -85,9 +82,9 @@ const AddNewTaskModal = () => {
                                 <div>
                                     {values.task.subtasks.map((_, i) => (
                                         <div key={i} className="flex">
-                                            {/* <TextInput label='' name={`task.subtasks.${i}.title`} type="text" placeholder="e.g. Archived" /> */}
+                                            <TextInput label='' name={`task.subtasks.${i}.title`} type="text" placeholder="e.g. Archived" />
 
-                                            {/* <button onClick={() => arrayHelpers.remove(i)}
+                                            <button onClick={() => arrayHelpers.remove(i)}
                                                 className="text-mediumGrey hover:text-mainRed ml-4"
                                             >
                                                 <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg">
@@ -96,18 +93,18 @@ const AddNewTaskModal = () => {
                                                         <path d="M0 2.122 2.122 0 14.85 12.728l-2.122 2.122z" />
                                                     </g>
                                                 </svg>
-                                            </button> */}
+                                            </button>
                                         </div>
                                     ))}
                                     <br />
 
-                                    {/* <button
+                                    <button
                                         type='button'
                                         onClick={() => arrayHelpers.push({ title: "", isCompleted: false })}
                                         className={'bg-[#635FC71A] rounded-full w-full py-[7px] text-mainPurple transition duration-200 text-base hover:bg-mainPurpleHover font-sans'}
                                     >
                                         {'+ Add New Subtask'}
-                                    </button> */}
+                                    </button>
                                 </div>
                             )}
                         />
@@ -116,7 +113,7 @@ const AddNewTaskModal = () => {
                         {/* <Select boardColumns={boardColumnsx} setCurrentFruit={setCurrentFruit}/> */}
 
                         <Button type="submit" disabled={isSubmitting} children={'Save Changes'} width={"w-full"} padding={'py-[7px]'} color={'text-white'} />
-                        <pre>{JSON.stringify(values, null, 2)}</pre>
+                        {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
                     </Form>
                 )}
             </Formik>

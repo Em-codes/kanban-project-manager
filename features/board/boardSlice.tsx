@@ -40,6 +40,23 @@ export const boardsSlice = createSlice({
             const column = board?.columns.find(column => column.name === action.payload.task.status)
             column?.tasks.unshift(action.payload.task)
         },
+        editTask: (state, action: PayloadAction<{task: Task, prevTaskTitle: string; boardName: string; columnName: string }>) => {
+            const board = state.boards.find(board => board.name === action.payload.boardName)
+            const column = board?.columns.find(column => { return column.name === action.payload.columnName })
+          
+            const taskIndex = column?.tasks.map(task => task.title).indexOf(action.payload.prevTaskTitle)
+            if(column && typeof taskIndex === "number" && taskIndex >= 0){
+                column.tasks[taskIndex] = action.payload.task
+            }
+        },
+        deleteTask: (state, action: PayloadAction<{ taskTitle: string; boardName: string; columnName: string }>) => {
+            const board = state.boards.find(board => board.name === action.payload.boardName)
+            const column = board?.columns.find(column => { return column.name === action.payload.columnName })
+            const taskIndex = column?.tasks.map(task => task.title).indexOf(action.payload.taskTitle)
+            if(typeof taskIndex === "number"){
+                column?.tasks.splice(taskIndex, 1)
+            }
+        },
         editSubtasks: (state, action: PayloadAction<{ task: Task; index: number; boardName: string; columnName: string }>) => {
             const board = state.boards.find(board => board.name === action.payload.boardName)
             const column = board?.columns.find(column => {
@@ -50,8 +67,20 @@ export const boardsSlice = createSlice({
                 task.subtasks = action.payload.task.subtasks
             }
         },
+
+         changeTaskStatus: (state, action: PayloadAction<{ taskStatus: string; index: number; boardName: string; columnName: string }>) => {
+            const board = state.boards.find(board => board.name === action.payload.boardName)
+            const column = board?.columns.find(column => {
+                return column.name === action.payload.columnName
+            })
+            const task = column?.tasks[action.payload.index]
+            console.log(action.payload.index)
+            if(task){
+                task.status = action.payload.taskStatus
+            }
+        },
     }
 })
 
-export const { getAllBoards, createNewBoard, deleteBoard, editBoard, addTask, editSubtasks } = boardsSlice.actions
+export const { getAllBoards, createNewBoard, deleteBoard, editBoard, addTask, editTask, deleteTask, editSubtasks, changeTaskStatus } = boardsSlice.actions
 export default boardsSlice.reducer

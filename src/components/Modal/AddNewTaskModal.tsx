@@ -28,19 +28,14 @@ const AddNewTaskModal = () => {
     const boardNameTag = boards[currentBoard] && boards[currentBoard].name
     const boardColumnsx = boards?.find(element => element.name === boardNameTag)?.columns;
 
+    let selectedStatus = boardColumnsx && boardColumnsx[0].name
 
-    const [status, setStatus] = useState(boardColumnsx && boardColumnsx[0].name);
-    // const [currentFruit, setCurrentFruit] = useState(boardColumnsx && boardColumnsx[0].name)
- 
-    // const changeTaskStatus = (taskId, status) => {
-    //     const task = currentBoard.tasks.find((task) => task.id === taskId);
-    //     const column = columns.find((column) => column.name === status);
-    //     const prevColumn = columns.find((column) => column.name === task.status);
-    //     prevColumn.tasks = prevColumn.tasks.filter((id) => id !== taskId);
-    //     column.tasks.push(taskId);
-    //     task.status = column.name;
-    //     setBoards([...boards]);
-    //   };
+
+    const [status, setStatus] = useState('');
+    // const [status, setStatus] = useState('');
+    useEffect(() => {
+
+    }, [])
 
     return (
         <div>
@@ -51,13 +46,14 @@ const AddNewTaskModal = () => {
                     task: {
                         title: "",
                         description: "",
-                        subtasks: [{ title: "", isCompleted: false }],
-                        status:status,
+                        subtasks: [],
+                        status: '',
                     },
                     boardName: boardNameTag,
-                    columnName:status
+                    columnName: ''
 
                 }}
+
                 // validationSchema={validate}
                 onSubmit={(values, { setSubmitting, resetForm }) => {
                     setSubmitting(true)
@@ -65,8 +61,8 @@ const AddNewTaskModal = () => {
                     //make async call
                     dispatch(addTask(values))
                     console.log('submit:', values);
-                    // values.task.status = currentFruit
-                    // values.columnName = currentFruit
+                    values.task.status = status
+                    values.columnName = status
                     setSubmitting(false)
                     resetForm()
                 }}
@@ -85,9 +81,9 @@ const AddNewTaskModal = () => {
                                 <div>
                                     {values.task.subtasks.map((_, i) => (
                                         <div key={i} className="flex">
-                                            {/* <TextInput label='' name={`task.subtasks.${i}.title`} type="text" placeholder="e.g. Archived" /> */}
+                                            <TextInput label='' name={`task.subtasks.${i}.title`} type="text" placeholder="e.g. Archived" />
 
-                                            {/* <button onClick={() => arrayHelpers.remove(i)}
+                                            <button onClick={() => arrayHelpers.remove(i)}
                                                 className="text-mediumGrey hover:text-mainRed ml-4"
                                             >
                                                 <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg">
@@ -96,24 +92,36 @@ const AddNewTaskModal = () => {
                                                         <path d="M0 2.122 2.122 0 14.85 12.728l-2.122 2.122z" />
                                                     </g>
                                                 </svg>
-                                            </button> */}
+                                            </button>
                                         </div>
                                     ))}
                                     <br />
 
-                                    {/* <button
+                                    <button
                                         type='button'
                                         onClick={() => arrayHelpers.push({ title: "", isCompleted: false })}
                                         className={'bg-[#635FC71A] rounded-full w-full py-[7px] text-mainPurple transition duration-200 text-base hover:bg-mainPurpleHover font-sans'}
                                     >
                                         {'+ Add New Subtask'}
-                                    </button> */}
+                                    </button>
                                 </div>
                             )}
                         />
 
-                        <StatustDropdown boardColumns={boardColumnsx} status={status}  setStatus={setStatus}/> <br /> <br />
-                        {/* <Select boardColumns={boardColumnsx} setCurrentFruit={setCurrentFruit}/> */}
+                        {/* <StatustDropdown boardColumns={boardColumnsx} status={status}  setStatus={setStatus}/> <br /> <br /> */}
+
+                        <label className='select-label' htmlFor="dept">Status
+                            <select defaultValue={status === undefined ? '' : status}
+                                required
+                                name="status"
+                                onChange={(e) => { setStatus(e.target.value) }}
+                            >
+                                <option disabled value="">Select status</option>
+                                {boardColumnsx && boardColumnsx.map(column =>
+                                    <option value={column.name}>{column.name}</option>
+                                )}
+                            </select>
+                        </label>
 
                         <Button type="submit" disabled={isSubmitting} children={'Save Changes'} width={"w-full"} padding={'py-[7px]'} color={'text-white'} />
                         <pre>{JSON.stringify(values, null, 2)}</pre>

@@ -18,7 +18,7 @@ const Header = () => {
 
   const data = useAppSelector((state: RootState) => state.boards.boards)
   const currentBoard = useAppSelector((state: RootState) => state?.currentBoard)
-  const boardTitle = data?.length && (data)[currentBoard.value].name
+  const boardTitle: any = data?.length && (data)[currentBoard.value].name
 
 
   return (
@@ -34,13 +34,12 @@ const Header = () => {
 
         </div>
         <div className='flex items-center justify-between w-full px-6'>
-          <h2 className='font-sans text-lg font-bold'>{boardTitle? boardTitle : "Create New Board"}</h2>
+          <h2 className='font-sans text-lg font-bold'>{boardTitle ? boardTitle : "Create New Board"}</h2>
           <div className='flex items-center gap-4'>
             <Button children={"+ Add New Task"} padding={'py-3 px-4'} width={''} color={'text-white'} font_weight={'font-bold'} onClick={() => setIsAddNewTask(!isAddNewTask)} />
-            <EditButton  currentBoard={boardTitle}
-            className={'-bottom-28 -left-44 border '}
-            type="Board"
-            // className="bottom-0 left-0 -translate-x-full translate-y-28"
+            <EditButton currentBoard={boardTitle}
+              className={'-bottom-28 -left-44 border '}
+              type="Board"
             />
           </div>
         </div>

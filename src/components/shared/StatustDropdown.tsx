@@ -1,5 +1,8 @@
 import { Column } from '@src/types'
-import React, { useEffect, useState } from 'react'
+import { useAppDispatch } from 'app/hooks'
+import React, { useState } from 'react'
+import { changeTaskStatus } from '../../../features/board/boardSlice'
+
 
 interface statusProps {
   boardColumns: any,
@@ -10,16 +13,16 @@ interface statusProps {
 
 const StatustDropdown = ({ boardColumns, status, setStatus }: statusProps) => {
     const [showDropDown, setShowDropDown] = useState(false)
+    const dispatch = useAppDispatch();
 
-    const changeTaskStatus = (taskId, status) => {
-      // const task = boardColumns.tasks.find((task) => task.title === );
-      const column = columns.find((column) => column.name === status);
-      const prevColumn = columns.find((column) => column.name === task.status);
-      prevColumn.tasks = prevColumn.tasks.filter((id) => id !== taskId);
-      column.tasks.push(taskId);
-      task.status = column.name;
-    };
+   
+    const changeTaskStatus = (column: any) => {
+      setStatus(column.name)
+      console.log('status', status)
 
+    }
+ 
+   
 
     return (
       <>
@@ -46,15 +49,7 @@ const StatustDropdown = ({ boardColumns, status, setStatus }: statusProps) => {
             <div className="py-1" >
               {boardColumns.map((column: any, i: number) => (
                 <span
-                  // onClick={() => updateName(column)}
-                  onClick={() => {
-                    if(status) {
-                        setStatus(column.name);
-                    } else {
-                        changeTaskStatus(data.id, column.name);
-                    }
-                    setShowDropDown(false)
-                }}
+                 onClick={() => changeTaskStatus(column)}
                   key={i}
                   className="text-mediumGrey block px-4 py-2 text-sm hover:text-mainPurple hover:bg-mainPurple dark:hover:bg-white hover:bg-opacity-10 dark:hover:bg-opacity-10"
                 >

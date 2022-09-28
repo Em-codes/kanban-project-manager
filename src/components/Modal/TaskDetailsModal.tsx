@@ -14,10 +14,11 @@ interface props {
     completedTaskCount: number
     i: number
     j: number
-    boardNameTag: string
+    boardNameTag: string,
+    setShowDetails: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const TaskDetailsModal = ({ data, j, completedTaskCount, i, boardNameTag }: props) => {
+const TaskDetailsModal = ({ data, j, setShowDetails, completedTaskCount, i, boardNameTag }: props) => {
     const dispatch = useAppDispatch()
     const [isEditTask, setIsEditTask] = useState(false)
     const subtasks = [...data.subtasks]
@@ -38,14 +39,14 @@ const TaskDetailsModal = ({ data, j, completedTaskCount, i, boardNameTag }: prop
         <>
             <div className="flex items-center justify-between gap-4 mb-6">
                 <h1 className="text-[18px] font-bold">{data.title}</h1>
-               <EditButton task={data} type='' className={'-bottom-22 -left-44 border '} currentBoard=''/>
+               <EditButton setShowDetails={setShowDetails} task={data} type='' className={'-bottom-22 -left-44 border '} currentBoard=''/>
             </div>
             <p className="text-[13px] text-mediumGrey">
                 {data.description ? data.description : 'no description'}
             </p>
             <h3 className="flex items-center mt-6 mb-4 text-[13px] font-bold text-mediumGrey dark:text-white">
                 Subtasks ({completedTaskCount} of {data.subtasks.length})&nbsp;
-                {completedTaskCount === data.subtasks.length && <CircleWavyCheck size={28} color="#635FC7" weight="thin" />}
+                {completedTaskCount === data.subtasks.length && data.subtasks.length !== 0 && <CircleWavyCheck size={28} color="#635FC7" weight="thin" />}
             </h3>
 
             <form>

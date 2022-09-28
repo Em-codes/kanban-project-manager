@@ -12,11 +12,12 @@ import { taskCompleted } from '@reduxjs/toolkit/dist/listenerMiddleware/exceptio
 interface editButtonProps {
   task: Task
   className: string
-  currentBoard: string
+  currentBoard: any
   type: string
+  setShowDetails: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const EditButton = ({ type, task, className, currentBoard }: editButtonProps) => {
+const EditButton = ({ type, task, setShowDetails, className, currentBoard }: editButtonProps) => {
   const [showMenu, setShowMenu] = useState<boolean>(false);
   const [showUpdateBoardModal, setShowUpdateBoardModal] = useState<boolean>(false);
   const [showDeleteBoardModal, setShowDeleteBoardModal] = useState<boolean>(false);
@@ -52,11 +53,11 @@ const EditButton = ({ type, task, className, currentBoard }: editButtonProps) =>
               >Delete board
               </button>
               <Modal showModal={showDeleteBoardModal} setShowModal={() => setShowDeleteBoardModal(!showDeleteBoardModal)}>
-                <DeleteWarningModal currentTask='' type='Board' currentBoard={currentBoard} setShowMenu={setShowMenu} setShowDeleteBoardModal={setShowDeleteBoardModal} />
+                <DeleteWarningModal  setShowDetails={setShowDetails} currentTask={task} type='Board' currentBoard={currentBoard} setShowMenu={setShowMenu} setShowDeleteBoardModal={setShowDeleteBoardModal} />
               </Modal>
             </>
           </div>  : 
-          // tasks CTA Modal
+          // tasks CTA Modals
           <div ref={menuRef} className={`${className} flex flex-col items-start space-y-4 absolute body-lg rounded-lg p-4 w-48 shadow-main capitalize bg-white dark:bg-veryDarkGrey`}
           >
             <>
@@ -67,8 +68,7 @@ const EditButton = ({ type, task, className, currentBoard }: editButtonProps) =>
                 Edit Task
               </button>
               <Modal showModal={showUpdateBoardModal} setShowModal={() => setShowUpdateBoardModal(!showUpdateBoardModal)}>
-                {/* <UpdateBoardModal setShowUpdateBoardModal={setShowUpdateBoardModal}/> */}
-                <UpdateTaskModal task={task}/>
+                <UpdateTaskModal task={task} setShowUpdateBoardModal={setShowUpdateBoardModal} setShowMenu={setShowMenu}/>
               </Modal>
               <button
                 className="text-mainRed  text-[13px]"
@@ -76,7 +76,7 @@ const EditButton = ({ type, task, className, currentBoard }: editButtonProps) =>
               >Delete Task
               </button>
               <Modal showModal={showDeleteBoardModal} setShowModal={() => setShowDeleteBoardModal(!showDeleteBoardModal)}>
-                <DeleteWarningModal currentTask={task.title} type='' currentBoard={currentBoard} setShowMenu={setShowMenu} setShowDeleteBoardModal={setShowDeleteBoardModal} />
+                <DeleteWarningModal currentTask={task} type='' setShowDetails={setShowDetails} currentBoard={currentBoard} setShowMenu={setShowMenu} setShowDeleteBoardModal={setShowDeleteBoardModal} />
               </Modal>
             </>
           </div>

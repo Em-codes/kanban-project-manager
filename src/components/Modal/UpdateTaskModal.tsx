@@ -8,15 +8,17 @@ import TextArea from '@components/shared/TextArea'
 import { useAppDispatch, useAppSelector } from 'app/hooks'
 import { RootState } from 'app/store'
 import { useState } from 'react'
-import { addTask } from '../../../features/board/boardSlice'
+import { addTask, editTask } from '../../../features/board/boardSlice'
 import Select from './Select'
 import { Task } from '@src/types'
 
 interface Props {
-    task: Task
+    task: Task,
+    setShowUpdateBoardModal: React.Dispatch<React.SetStateAction<boolean>>
+    setShowMenu: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const AddNewTaskModal = ({task}: Props) => {
+const AddNewTaskModal = ({task, setShowUpdateBoardModal, setShowMenu}: Props) => {
     const dispatch = useAppDispatch()
 
     const validate = Yup.object({
@@ -52,20 +54,20 @@ const AddNewTaskModal = ({task}: Props) => {
                         status:task.status,
                     },
                     boardName: boardNameTag,
+                    prevTaskTitle: task.title,
                     columnName:task.status
 
                 }}
                 // validationSchema={validate}
-                onSubmit={(values, { setSubmitting, resetForm }) => {
+                onSubmit={(values, { setSubmitting }) => {
                     setSubmitting(true)
 
                     //make async call
-                    dispatch(addTask(values))
+                    dispatch(editTask(values))
                     console.log('submit:', values);
-                    // values.task.status = currentFruit
-                    // values.columnName = currentFruit
                     setSubmitting(false)
-                    resetForm()
+                    setShowUpdateBoardModal(false)
+                    setShowMenu(false)
                 }}
             >
                 {({ values, isSubmitting, handleSubmit }) => (
@@ -110,7 +112,6 @@ const AddNewTaskModal = ({task}: Props) => {
                         />
 
                         <StatustDropdown boardColumns={boardColumnsx} status={status}  setStatus={setStatus}/> <br /> <br />
-                        {/* <Select boardColumns={boardColumnsx} setCurrentFruit={setCurrentFruit}/> */}
 
                         <Button type="submit" disabled={isSubmitting} children={'Save Changes'} width={"w-full"} padding={'py-[7px]'} color={'text-white'} />
                         {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}

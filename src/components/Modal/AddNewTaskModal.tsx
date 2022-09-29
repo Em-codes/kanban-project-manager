@@ -1,5 +1,5 @@
 import TextInput from '@components/shared/TextInput'
-import { Formik, FieldArray, Form } from 'formik'
+import { Formik, Field, FieldArray, Form } from 'formik'
 import * as Yup from 'yup'
 import React, { useEffect } from 'react'
 import Button from '@components/shared/Button'
@@ -22,20 +22,13 @@ const AddNewTaskModal = () => {
     })
 
 
-
     const boards = useAppSelector((state: RootState) => state.boards.boards)
     const currentBoard = useAppSelector((state: RootState) => state.currentBoard.value)
     const boardNameTag = boards[currentBoard] && boards[currentBoard].name
     const boardColumnsx = boards?.find(element => element.name === boardNameTag)?.columns;
 
-    let selectedStatus = boardColumnsx && boardColumnsx[0].name
-
-
+    console.log(boardColumnsx)
     const [status, setStatus] = useState('');
-    // const [status, setStatus] = useState('');
-    useEffect(() => {
-
-    }, [])
 
     return (
         <div>
@@ -59,10 +52,9 @@ const AddNewTaskModal = () => {
                     setSubmitting(true)
 
                     //make async call
+                    values.columnName = values.task.status
                     dispatch(addTask(values))
                     console.log('submit:', values);
-                    values.task.status = status
-                    values.columnName = status
                     setSubmitting(false)
                     resetForm()
                 }}
@@ -108,20 +100,7 @@ const AddNewTaskModal = () => {
                             )}
                         />
 
-                        {/* <StatustDropdown boardColumns={boardColumnsx} status={status}  setStatus={setStatus}/> <br /> <br /> */}
-
-                        <label className='select-label' htmlFor="dept">Status
-                            <select defaultValue={status === undefined ? '' : status}
-                                required
-                                name="status"
-                                onChange={(e) => { setStatus(e.target.value) }}
-                            >
-                                <option disabled value="">Select status</option>
-                                {boardColumnsx && boardColumnsx.map(column =>
-                                    <option value={column.name}>{column.name}</option>
-                                )}
-                            </select>
-                        </label>
+                        <StatustDropdown boardColumns={boardColumnsx} status={status}  setStatus={setStatus}/> <br /> <br />
 
                         <Button type="submit" disabled={isSubmitting} children={'Save Changes'} width={"w-full"} padding={'py-[7px]'} color={'text-white'} />
                         <pre>{JSON.stringify(values, null, 2)}</pre>

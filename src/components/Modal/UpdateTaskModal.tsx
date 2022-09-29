@@ -38,7 +38,9 @@ const AddNewTaskModal = ({task, setShowUpdateBoardModal, setShowMenu}: Props) =>
     console.log('ts', task.subtasks)
 
 
-    const [status, setStatus] = useState(boardColumnsx && boardColumnsx[0].name);
+    // const [status, setStatus] = useState(boardColumnsx && boardColumnsx[0].name);
+    const [status, setStatus] = useState('');
+
 
 
     return (
@@ -51,7 +53,7 @@ const AddNewTaskModal = ({task, setShowUpdateBoardModal, setShowMenu}: Props) =>
                         title:task.title ,
                         description: task.description,
                         subtasks:task.subtasks,
-                        status:task.status,
+                        status:'',
                     },
                     boardName: boardNameTag,
                     prevTaskTitle: task.title,
@@ -63,8 +65,8 @@ const AddNewTaskModal = ({task, setShowUpdateBoardModal, setShowMenu}: Props) =>
                     setSubmitting(true)
 
                     //make async call
+                    values.columnName = values.task.status
                     dispatch(editTask(values))
-                    console.log('submit:', values);
                     setSubmitting(false)
                     setShowUpdateBoardModal(false)
                     setShowMenu(false)
@@ -111,7 +113,7 @@ const AddNewTaskModal = ({task, setShowUpdateBoardModal, setShowMenu}: Props) =>
                             )}
                         />
 
-                        <StatustDropdown boardColumns={boardColumnsx} status={status}  setStatus={setStatus}/> <br /> <br />
+                        <StatustDropdown currentStatus={task.status} boardColumns={boardColumnsx} status={status}  setStatus={setStatus}/> <br /> <br />
 
                         <Button type="submit" disabled={isSubmitting} children={'Save Changes'} width={"w-full"} padding={'py-[7px]'} color={'text-white'} />
                         {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}

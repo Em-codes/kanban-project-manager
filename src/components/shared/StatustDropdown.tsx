@@ -1,34 +1,34 @@
-import { Column } from '@src/types'
 import { useAppDispatch } from 'app/hooks'
 import React, { useState } from 'react'
-import { changeTaskStatus } from '../../../features/board/boardSlice'
+import { Field } from 'formik'
 
 
 interface statusProps {
-  boardColumns: any,
-  setStatus: any,
-  status: any,
-  // changeTaskStatus: (id: number, columnName: string) => void
+  boardColumns?: any,
+  setStatus?: any,
+  status?: any,
+  currentStatus?: any
+  // data: any
 }
 
-const StatustDropdown = ({ boardColumns, status, setStatus }: statusProps) => {
-    const [showDropDown, setShowDropDown] = useState(false)
-    const dispatch = useAppDispatch();
+const StatustDropdown = ({ boardColumns, currentStatus, status, setStatus }: statusProps) => {
+  const [showDropDown, setShowDropDown] = useState(false)
+  const dispatch = useAppDispatch();
 
-   
-    const changeTaskStatus = (column: any) => {
-      setStatus(column.name)
-      console.log('status', status)
 
-    }
- 
-   
+  const changeTaskStatus = (column: any) => {
+    setStatus(column.name)
+    console.log('status', status)
 
-    return (
-      <>
-        <h3 className="mt-6 text-[13px] font-bold font-sans mb-[4px] text-mediumGrey dark:text-white">{'Status'}</h3>
+  }
 
-        <div className="relative">
+
+
+  return (
+    <>
+      <h3 className="mt-6 text-[13px] font-bold font-sans mb-[4px] text-mediumGrey dark:text-white">{'Status'}</h3>
+
+      {/* <div className="relative">
           <button
             onClick={() => setShowDropDown(!showDropDown)}
             type="button"
@@ -37,7 +37,7 @@ const StatustDropdown = ({ boardColumns, status, setStatus }: statusProps) => {
             aria-expanded="true"
             aria-haspopup="true"
           >
-            {/* {status || data.status} */} {status}
+            {status}
             <svg className="-mr-1 ml-2 h-5 w-5 fill-mainPurple" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
               <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
             </svg>
@@ -58,44 +58,16 @@ const StatustDropdown = ({ boardColumns, status, setStatus }: statusProps) => {
               ))}
             </div>
           </div>}
-        </div>
-      </>
-    )
-  }
-
-
-  // const Dropdown = ({
-  //   options
-  // }) => {
-  //   const [selectedOption, setSelectedOption] = useState(options[0].value);
-  //   return (
-  //       <select
-  //         value={selectedOption}
-  //         onChange={e => setSelectedOption(e.target.value)}>
-  //         {options.map(o => (
-  //           <option key={o.value} value={o.value}>{o.label}</option>
-  //         ))}
-  //       </select>
-  //   );
-  // };
-
-  // return (
-  //   <select
-  //     className="w-full px-4 rounded h-10 text-[13px] font-medium text-black dark:text-white bg-white dark:bg-d-gray border border-l-lines dark:border-m-gray"
-  //     value={currentStatus || data.status }
-  //     onChange={handleStatusChange}
-  //   >
-  //     {boardColumns.map((status: any, i: number) => {
-  //       return <option
-  //         key={i}
-  //         className="text-[13px] font-medium"
-  //       >
-  //         {status.name}
-  //       </option>
-  //     })}
-  //   </select>
-  // )
-// }
+        </div> */}
+      <Field className="inline-flex justify-between items-center w-full rounded-md outline outline-1 outline-lightGreyLine shadow-sm px-4 py-2 bg-white text-sm font-medium text-black focus:outline-mainPurple dark:bg-darkGrey dark:text-white dark:outline-darkGreyLine" 
+      as="select" name="task.status" value={currentStatus}>
+        {boardColumns && boardColumns.map((column: any) => (
+          <option className="text-mediumGrey block px-4 py-2 text-sm hover:text-mainPurple hover:bg-mainPurple dark:hover:bg-white hover:bg-opacity-10 dark:hover:bg-opacity-10" value={column.name}>{column.name}</option>
+        ))}
+      </Field>
+    </>
+  )
+}
 
 
 

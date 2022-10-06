@@ -17,6 +17,13 @@ module.exports = {
       md: ["0.9375rem", "1.1875rem"],
       sm: ["0.75rem", "0.9375rem"],
     },
+      extend: {},
+      screens: {
+        // sc - small screen
+        // scm - small screen medium
+        'sc': '767px',
+        'scm': '450px',
+      },
     extend: {
       colors: {
         black: "#000112",

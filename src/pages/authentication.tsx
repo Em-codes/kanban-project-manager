@@ -32,7 +32,7 @@ const authentication = () => {
     //     <div key={i}>
     //         {i + 1},{val}
     //     </div>
-    // )
+   
 
 
     // fisher-yates

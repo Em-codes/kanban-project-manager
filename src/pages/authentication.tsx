@@ -6,37 +6,24 @@ import axios from 'axios'
 
 const authentication = () => {
 
-    const [wordArr, setWord] = useState(false)
+    const [wordArr, setWord] = useState([])
 
     const [hasPhrase, updateHasPhrase] = useState<boolean>(false)
     // useEffect(() => {
-    //     axios.get()
+
     // }, [])
 
-    const data = axios.get('https://random-word-api.herokuapp.com/all').then(())
-   console.log(data)
-
-    // const words = [];
-
-    // function shuffle(array: any) {
-    //     array.sort(() => Math.random() - 0.5);
-    //     return array
-    // }
-
-    // const get_word = function (number: any) {
-    //     return shuffle(words).slice(0, number)
-    // }
-
-
-    // const phrase = mw && get_word(3).map((val, i) => 
-    //     <div key={i}>
-    //         {i + 1},{val}
-    //     </div>
-   
+    const initializePhrase = () => {
+        axios.get('https://random-word-api.herokuapp.com/all')
+            .then(response => {
+                console.log(response.data);
+                setWord(response.data)
+            });
+    }
 
 
     // fisher-yates
-    function shuffle(array) {
+    function shuffle(array: any) {
         let currentIndex = array.length, randomIndex;
         while (currentIndex != 0) {
 
@@ -50,9 +37,8 @@ const authentication = () => {
         return array;
     }
 
-    var arr = ["Bus", "Plane", "Car", "Dog", "Cat", "House"];
-    console.log(shuffle(arr))
-    const x = shuffle(arr)
+    console.log(shuffle(wordArr && wordArr))
+    const x = shuffle(wordArr && wordArr)
 
     //   function shuffle(array: any) {
     //     array.sort(() => Math.random() - 0.5);
@@ -64,10 +50,10 @@ const authentication = () => {
     }
 
 
-    const y = get_word(3).map((el, i) =>
-            <span className='bg-gray-300 px-2 py-1 rounded' key={i}>
-                {i + 1}.{el}
-            </span>
+    const y = get_word(6).map((el: string, i: number) =>
+        <span className='bg-gray-300 px-2 py-1 rounded mb-3 mr-3' key={i}>
+            {i + 1}.{el}
+        </span>
     )
 
     console.log(y)
@@ -93,7 +79,7 @@ const authentication = () => {
                     </div>
                     }
                     {!hasPhrase && <div>
-                        <div className={`bg-white dark:bg-darkGrey body-lg w-full h-28 px-4 py-2 my-2 block rounded text-black dark:text-white resize-none border border-mediumGrey border-opacity-25 placeholder:opacity-25
+                        <div className={`bg-white dark:bg-darkGrey body-lg w-full min-h-28 h-full px-4 py-2 my-2 block rounded text-black dark:text-white resize-none border border-mediumGrey border-opacity-25 placeholder:opacity-25
                                 focus:outline-none focus:border-mainPurple`}>
                             {/* {(get_word(3)).map(function (val) {
                                 <div>
@@ -101,9 +87,9 @@ const authentication = () => {
                                 </div>
                             })} */}
 
-                            <div className='flex items-center space-x-2'>{y}</div>
+                            <div className='flex flex-wrap items-center'>{y}</div>
                         </div>
-                        <button className="flex-1 bg-mainPurple bg-opacity-10 text-mainPurple text-[13px] max-w-[120px] w-full rounded-md p-2 transition duration-200 hover:bg-opacity-25 dark:bg-opacity-100 dark:bg-white">Get My Phrase</button>
+                        <button onClick={() => initializePhrase()} className="flex-1 bg-mainPurple bg-opacity-10 text-mainPurple text-[13px] max-w-[120px] w-full rounded-md p-2 transition duration-200 hover:bg-opacity-25 dark:bg-opacity-100 dark:bg-white">Get My Phrase</button>
                         <div className='py-12'>
                             <span className='text-mediumGrey' >Already has phrase ..?</span> <button onClick={() => updateHasPhrase(!hasPhrase)} className='text-mainPurple underline'>Continue</button>
                         </div>

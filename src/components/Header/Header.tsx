@@ -25,7 +25,7 @@ const Header = () => {
 
   return (
     <>
-      <header className='flex items-center h-[85px] bg-white dark:bg-darkGrey dark:text-white dark:border-darkGreyLine'>
+      <header className='flex items-center justify-between h-[85px] bg-white dark:bg-darkGrey dark:text-white dark:border-darkGreyLine border-4 border-red-500 w-[100vw]'>
         <div className="w-[360px] p-8 box-border transition-all ease border-r border-r-lightGreyLine dark:border-r-darkGreyLine">
           {theme === "dark" ? (
             <Image src="/assets/logo-light.svg" height={25} width={152} />
@@ -37,12 +37,12 @@ const Header = () => {
         </div>
         <div className='flex items-center justify-between w-[100%] px-6 border border-red-500'>
           <h2 className='font-sans text-lg font-bold'>{boardTitle ? boardTitle : "Create New Board"}</h2>
-          <div className='flex items-center gap-4'>
+          <div className='flex items-center space-x-4'>
             <Button children={"+ Add New Task"} padding={'py-3 px-4'} width={''} color={'text-white'} font_weight={'font-bold'} onClick={() => setIsAddNewTask(!isAddNewTask)} />
-            <EditButton currentBoard={boardTitle}
+            {/* <EditButton currentBoard={boardTitle}
               className={'-bottom-28 -left-44 border '}
               type="Board"
-            />
+            /> */}
           </div>
         </div>
       </header>

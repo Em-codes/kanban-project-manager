@@ -24,13 +24,13 @@ const Home: NextPage = () => {
   const [isSidebar, setIsSidebar] = useState<boolean>(true)
 
   return (
-    <main>
+    <section className='w-full border-red-600 border-3'>
       <Header />
       <div className='flex h-[calc(100vh-85px)]'>
         {isSidebar && <SideBar isSidebar={isSidebar} setIsSidebar={setIsSidebar} />}
         <Board setIsSidebar={setIsSidebar} isSidebar={isSidebar} />
       </div>
-    </main>
+    </section>
   )
 }
 

@@ -25,7 +25,7 @@ const Header = () => {
 
   return (
     <>
-      <header className='flex items-center justify-between h-[85px] bg-white dark:bg-darkGrey dark:text-white dark:border-darkGreyLine border-4 border-red-500 w-[100vw]'>
+      <header className='flex items-center justify-between h-[85px] bg-white dark:bg-darkGrey dark:text-white dark:border-darkGreyLine border-4 w-[100vw]'>
         <div className="w-[360px] p-8 box-border transition-all ease border-r border-r-lightGreyLine dark:border-r-darkGreyLine">
           {theme === "dark" ? (
             <Image src="/assets/logo-light.svg" height={25} width={152} />

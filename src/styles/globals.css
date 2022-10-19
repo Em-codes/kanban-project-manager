@@ -9,7 +9,9 @@ body { font-family: 'Plus Jakarta Sans', sans-serif !important; }
 .active-nav { color: #fff; background: #635FC7; cursor:none;}
 .active-nav:hover { background: #635FC7 !important;}
 
-
+.ab {
+  padding: 10px
+}
 
 @layer base {
   body {

@@ -10,6 +10,7 @@ body { font-family: 'Plus Jakarta Sans', sans-serif !important; }
 .active-nav:hover { background: #635FC7 !important;}
 
 
+
 @layer base {
   body {
     @apply max-w-[1920px] mx-auto
